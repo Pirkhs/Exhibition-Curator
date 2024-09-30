@@ -1,5 +1,6 @@
 import '../styles/App.css'
 import Collections from './Collections'
+import Error from './Error'
 import Exhibition from './Exhibition'
 import Header from './Header'
 import Home from './Home'
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home/>}></Route>
         <Route path="/collections" element={<Collections/>}></Route>
         <Route path="/exhibition" element={<Exhibition/>}></Route>
+        <Route path="*" element={<Error msg={'404: Page not found'}/>} />
       </Routes>
     </>
   )
