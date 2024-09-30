@@ -10,7 +10,7 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
 
   return (
-    <>
+    <div className="app">
       <Header/>
       <Nav/>
       <Routes>
@@ -19,7 +19,7 @@ function App() {
         <Route path="/exhibition" element={<Exhibition/>}></Route>
         <Route path="*" element={<Error msg={'404: Page not found'}/>} />
       </Routes>
-    </>
+    </div>
   )
 }
 
