@@ -8,7 +8,7 @@ export default function Collections () {
         <div className="collections">
             <h2> Metropolitan Museum of Art </h2>
             <form className="searchbar MMoA"> 
-                Search for: <input name="query MMoA" /> 
+                Search for: <input name="query-1" /> 
                 <button type="submit">Search</button>
             </form>
             <br></br>
@@ -18,7 +18,7 @@ export default function Collections () {
         <div className="collections">
             <h2> Harvard Arts Museum </h2>
             <form className="searchbar HAM"> 
-                Search for: <input name="query HAM" /> 
+                Search for: <input name="query-2" /> 
                 <button type="submit">Search</button>
             </form>
             <br></br>

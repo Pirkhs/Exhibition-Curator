@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom'
 import '../styles/Nav.css'
 
 export default function Nav () {
     return (
         <>
         <nav>
-            <a href="/"> Home </a> |
-            <a href="/collections"> View Collections </a> |
-            <a href="/exhibition"> My Exhibition </a>
+            <Link to="/"> Home </Link> |
+            <Link to="/collections"> View Collections </Link> |
+            <Link to="/exhibition"> My Exhibition </Link>
         </nav>
         <br></br>
         </>
