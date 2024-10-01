@@ -9,7 +9,6 @@ export default function CollectionMMoA () {
     const [isError, setIsError] = useState(false)
     const [objectIDs, setObjectIDs] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [departmentFilter, setDepartmentFilter] = useState(null)
 
     const objectDepartments = {
         "American Decorative Arts": 1,
@@ -26,7 +25,6 @@ export default function CollectionMMoA () {
     const handleButtonFilter = (e) => {
         const departmentId = objectDepartments[e.target.innerHTML]
         setIsLoading(true)
-        setDepartmentFilter(e.target.innerHTML)
         getMetropolitanObjectsByDepartment(departmentId)
         .then(response => {
             const objectIDs = response.data.objectIDs.slice(0, 20)
@@ -47,7 +45,7 @@ export default function CollectionMMoA () {
         })
         .catch(err => setIsError(true))
         .finally(() => setIsLoading(false))
-    }, [departmentFilter])
+    }, [])
 
     { if (isError) {
         return <Error msg="Data Fetch Unsuccessful, Please Try Again"/>
