@@ -25,3 +25,6 @@ export function getAllHarvardObjects (pageNo = 1) {
     return apiHarvard.get(`/object?apikey=${apiKey}&&size=20&&page=${pageNo}`)
 }
 
+export function getHarvardObjectById (id) {
+    return apiHarvard.get(`/object?apikey=${apiKey}&&id=${id}`)
+}

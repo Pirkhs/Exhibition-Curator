@@ -1,0 +1,30 @@
+li {
+    list-style-type: none;
+}
+
+#object-id {
+    display: inline-block;
+    border: 1px solid black;
+    color: black;
+    font-weight: bold;
+    border-radius: 1rem;
+    background-color: grey;
+    padding: 1rem;
+}
+
+.single-object-img {
+    width: 100%;
+    border: 1px solid lightgreyz
+}
+
+.data-from {
+    text-align: center;
+}
+
+.container-button-add {
+    text-align: center;
+}
+
+.container-button-add button {
+    padding: 1.5rem;
+}
