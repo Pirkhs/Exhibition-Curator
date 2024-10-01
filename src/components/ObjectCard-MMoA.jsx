@@ -5,7 +5,7 @@ import Error from './Error.jsx'
 import { getMetropolitanObjectById } from '../api'
 import '../styles/ObjectCard.css'
 
-export default function ObjectCard ({id}) {
+export default function ObjectCardMMoA ({id}) {
     const [object, setObject] = useState({})
 
     useEffect(() => {
