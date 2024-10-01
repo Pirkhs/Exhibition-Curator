@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllMetropolitanObjects } from '../api'
+import { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanObjectsByDepartment } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -23,7 +23,16 @@ export default function CollectionMMoA () {
     }
 
     const handleButtonFilter = (e) => {
-        console.log(e.target)
+        const departmentId = objectDepartments[e.target.innerHTML]
+        setIsLoading(true)
+        getMetropolitanObjectsByDepartment(departmentId)
+        .then(response => {
+            const objectIDs = response.data.objectIDs.slice(0, 20)
+            setObjectIDs(objectIDs)
+        })
+        .catch(() => setIsError(true))
+        .finally(setIsLoading(false))
+        
     }
 
     useEffect(() => {
