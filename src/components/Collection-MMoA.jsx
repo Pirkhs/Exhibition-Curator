@@ -29,7 +29,6 @@ export default function CollectionMMoA () {
             const departmentId = objectDepartments[departmentFilter]
             getMetropolitanObjectsByDepartment(departmentId)
             .then(response => {
-                console.log(response.data)
                 const objectIDs = response.data.objectIDs.slice(0, 20)
                 setObjectIDs(objectIDs)
             })
@@ -37,7 +36,7 @@ export default function CollectionMMoA () {
             .finally(setIsLoading(false))
             return
         }
-        
+
         getAllMetropolitanObjects()
         .then(response => {
             const objectIDs = response.data.objectIDs.slice(0, 20)

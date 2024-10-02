@@ -28,3 +28,7 @@ li {
 .container-button-add button {
     padding: 1.5rem;
 }
+
+.added-to-exhibition {
+    text-align: center;
+}

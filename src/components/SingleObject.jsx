@@ -15,6 +15,21 @@ export default function SingleObject () {
     const [object, setObject] = useState({})
     const [isError, setIsError] = useState("")
     const [isLoading, setIsLoading] = useState("")
+    const [isAdded, setIsAdded] = useState(false)
+
+    const handleAddToExhibition = () => {
+        setIsAdded(true)
+        const existingEntries = JSON.parse(localStorage.getItem("Exhibition")) || []          
+        const entry = {
+            title: object.title || "",
+            primaryimageurl: object.primaryImageSmall || object.primaryimageurl || "",
+            collectionId,
+            objectid: objectId
+        }
+        localStorage.setItem("entry", JSON.stringify(entry));  
+        existingEntries.push(entry);
+        localStorage.setItem("Exhibition", JSON.stringify(existingEntries));
+    }
 
     useEffect(() => {
         if (collectionId !== 1 && collectionId !== 2) {
@@ -30,7 +45,6 @@ export default function SingleObject () {
         .then(response => collectionId === 1 ? setObject(response.data) : setObject(response.data.records[0]))
         .catch(err => setIsError("Unavailable to fetch data"))
         .finally(setIsLoading(false))
-
 
     }, [])
 
@@ -48,7 +62,7 @@ export default function SingleObject () {
                 <li> Culture: {object.culture || <Error msg="No culture data"/>} </li>
                 { object.primaryImageSmall || object.primaryimageurl ? <img className="single-object-img" src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
                 <p className="data-from"> Data From: { collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </p> 
-                <div className="container-button-add"><button>  Add to My Exhibition </button></div>
+                { !isAdded ? <div className="container-button-add"><button onClick = {() => { handleAddToExhibition() }}>  Add to My Exhibition </button></div> : <p className="added-to-exhibition"> Added to Exhibition </p> }
             </ul>
         </div>
     )

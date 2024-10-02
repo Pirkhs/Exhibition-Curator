@@ -12,18 +12,6 @@ export default function ObjectCardMMoA ({id}) {
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const objectDepartments = {
-        "American Decorative Arts": 1,
-        "Ancient Near Eastern Art": 3,
-        "Arts of Africa, Oceania, and the Americas": 5,
-        "Asian Art": 6,
-        "Egyptian Art": 10,
-        "Greek and Roman Art": 13,
-        "Islamic Art": 14,
-        "Medieval Art": 17,
-        "Modern Art": 21
-    }
-
     useEffect(() => {
         setIsLoading(true)
         getMetropolitanObjectById(id)
