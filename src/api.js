@@ -17,6 +17,10 @@ export function getMetropolitanObjectById (id) {
     return apiMetropolitan.get(`/objects/${id}`)
 }
 
+export function getMetropolitanDepartments (){
+    return apiMetropolitan.get(`/departments`)
+}
+
 export function getMetropolitanObjectsByDepartment (departmentId) {
     return apiMetropolitan.get(`/objects?departmentIds=${departmentId}`)
 }
@@ -27,4 +31,12 @@ export function getAllHarvardObjects (pageNo = 1) {
 
 export function getHarvardObjectById (id) {
     return apiHarvard.get(`/object?apikey=${apiKey}&&id=${id}`)
+}
+
+export function getHarvardObjectsByClassification (classification) {
+    return apiHarvard.get(`/object?apikey=${apiKey}&&classification=${classification}`)
+}
+
+export function getAllHarvardClassifications () {
+    return apiHarvard.get(`/classification?apikey=${apiKey}`)
 }

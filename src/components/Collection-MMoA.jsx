@@ -4,6 +4,7 @@ import { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanOb
 import '../styles/Collections.css'
 import Loading from './Loading'
 import ObjectCard from './ObjectCard'
+import Error from './Error'
 
 export default function CollectionMMoA () {
     const [isError, setIsError] = useState(false)
@@ -32,7 +33,7 @@ export default function CollectionMMoA () {
                 const objectIDs = response.data.objectIDs.slice(0, 20)
                 setObjectIDs(objectIDs)
             })
-            .catch(() => setIsError(true))
+            .catch(() => setIsError("Unable to fetch objects"))
             .finally(setIsLoading(false))
             return
         }
@@ -43,14 +44,12 @@ export default function CollectionMMoA () {
             setObjectIDs(objectIDs)
             
         })
-        .catch(() => setIsError(true))
+        .catch(() => setIsError("Unable to fetch collection"))
         .finally(() => setIsLoading(false))
 
     }, [departmentFilter])
 
-    { if (isError) {
-        return <Error msg="Data Fetch Unsuccessful, Please Try Again"/>
-    }}
+    if (isError) return <Error msg={isError}/>
 
     return isLoading ? <Loading msg="Loading Metropolitan Collection"/> :(
         <section>
