@@ -32,6 +32,8 @@ export default function SingleObject () {
     }
 
     useEffect(() => {
+        checkIsAlreadyInExhibition()
+
         if (collectionId !== 1 && collectionId !== 2) {
             setIsError("Invalid collection ID")
             return
@@ -50,6 +52,15 @@ export default function SingleObject () {
 
     if (isError) return <Error msg={isError}/>
 
+    const checkIsAlreadyInExhibition = () => {
+        const objectsInExhibition = JSON.parse(localStorage.getItem("Exhibition")) || []
+        if (objectsInExhibition.length === 0) return
+
+        const IdsInExhibition = objectsInExhibition.map(object => `${object.collectionId}/${object.objectId}`)
+        setIsAdded(IdsInExhibition.includes(`${collectionId}/${objectId}`))
+    }
+
+    
     return isLoading ? <Loading msg="Loading Single Object..."/> : (
         <div className="single-object">
             <ul>
@@ -62,7 +73,7 @@ export default function SingleObject () {
                 <li> Culture: {object.culture || <Error msg="No culture data"/>} </li>
                 { object.primaryImageSmall || object.primaryimageurl ? <img className="single-object-img" src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
                 <p className="data-from"> Data From: { collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </p> 
-                { !isAdded ? <div className="container-button-add"><button onClick = {() => { handleAddToExhibition() }}>  Add to My Exhibition </button></div> : <p className="added-to-exhibition"> Added to Exhibition </p> }
+                { isAdded ? <p className="added-to-exhibition"> Already in your Exhibition </p> : <div className="container-button-add"><button onClick = {() => { handleAddToExhibition() }}>  Add to My Exhibition </button></div> }
             </ul>
         </div>
     )

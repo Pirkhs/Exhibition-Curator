@@ -15,7 +15,7 @@ export default function Exhibition () {
     return exhibition.length === 0 ? <p> Start by adding some objects to your collection!</p>
     : (
         <>
-        <h2> My Collection </h2>
+        <h2> My Exhibition </h2>
         <div className="exhibition">
             { exhibition.map(object => {
                 return <ObjectCard key={object.objectId} objectId={object.objectId} objectData={object} collectionId={object.collectionId}/>
