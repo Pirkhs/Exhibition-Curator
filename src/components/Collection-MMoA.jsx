@@ -9,6 +9,7 @@ export default function CollectionMMoA () {
     const [isError, setIsError] = useState(false)
     const [objectIDs, setObjectIDs] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [departmentFilter, setDepartmentFilter] = useState(null)
 
     const objectDepartments = {
         "American Decorative Arts": 1,
@@ -22,30 +23,31 @@ export default function CollectionMMoA () {
         "Modern Art": 21
     }
 
-    const handleButtonFilter = (e) => {
-        const departmentId = objectDepartments[e.target.innerHTML]
-        setIsLoading(true)
-        getMetropolitanObjectsByDepartment(departmentId)
-        .then(response => {
-            const objectIDs = response.data.objectIDs.slice(0, 20)
-            setObjectIDs(objectIDs)
-        })
-        .catch(() => setIsError(true))
-        .finally(setIsLoading(false))
-        
-    }
-
     useEffect(() => {
         setIsLoading(true)
+        if (departmentFilter) {
+            const departmentId = objectDepartments[departmentFilter]
+            getMetropolitanObjectsByDepartment(departmentId)
+            .then(response => {
+                console.log(response.data)
+                const objectIDs = response.data.objectIDs.slice(0, 20)
+                setObjectIDs(objectIDs)
+            })
+            .catch(() => setIsError(true))
+            .finally(setIsLoading(false))
+            return
+        }
+        
         getAllMetropolitanObjects()
         .then(response => {
             const objectIDs = response.data.objectIDs.slice(0, 20)
             setObjectIDs(objectIDs)
             
         })
-        .catch(err => setIsError(true))
+        .catch(() => setIsError(true))
         .finally(() => setIsLoading(false))
-    }, [])
+
+    }, [departmentFilter])
 
     { if (isError) {
         return <Error msg="Data Fetch Unsuccessful, Please Try Again"/>
@@ -62,7 +64,7 @@ export default function CollectionMMoA () {
                 <h3> Filter By Department</h3>
                 <div className="filter-buttons">
                     { Object.keys(objectDepartments).map(department => {
-                        return <button key = {department} onClick={(e) => handleButtonFilter(e)}>{department}</button>
+                        return <button key = {department} onClick={() => setDepartmentFilter(department)}>{department}</button>
                     })}
                 </div>
             </div>
