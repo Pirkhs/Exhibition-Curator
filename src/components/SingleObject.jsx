@@ -24,7 +24,7 @@ export default function SingleObject () {
             title: object.title || "",
             primaryimageurl: object.primaryImageSmall || object.primaryimageurl || "",
             collectionId,
-            objectid: objectId
+            objectId: objectId
         }
         localStorage.setItem("entry", JSON.stringify(entry));  
         existingEntries.push(entry);

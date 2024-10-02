@@ -3,7 +3,7 @@ import { getAllHarvardObjects } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
-import ObjectCardHAM from './ObjectCard-HAM'
+import ObjectCard from './ObjectCard'
 
 export default function CollectionHAM () {
     const [isError, setIsError] = useState(false)
@@ -31,7 +31,7 @@ export default function CollectionHAM () {
         <section>
             <div className="collection">
                 { objects.map(object => {
-                    return <ObjectCardHAM key = {object.objectid} object={object}/>
+                    return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
                 })}
             </div>
             <div className="filter">

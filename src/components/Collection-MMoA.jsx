@@ -3,7 +3,7 @@ import { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanOb
 
 import '../styles/Collections.css'
 import Loading from './Loading'
-import ObjectCardMMoA from './ObjectCard-MMoA'
+import ObjectCard from './ObjectCard'
 
 export default function CollectionMMoA () {
     const [isError, setIsError] = useState(false)
@@ -56,7 +56,7 @@ export default function CollectionMMoA () {
         <section>
             <div className="collection">
                 {objectIDs.map(objectID => {
-                    return <ObjectCardMMoA key={objectID} id={objectID}/>
+                    return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>
                 })}
             </div>
             <div className="filter">
