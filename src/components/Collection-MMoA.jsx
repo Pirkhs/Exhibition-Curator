@@ -53,11 +53,13 @@ export default function CollectionMMoA () {
 
     return isLoading ? <Loading msg="Loading Metropolitan Collection"/> :(
         <section>
+            { objectIDs.length === 0 ? <p className="collection"> No objects to show </p> :
             <div className="collection">
                 {objectIDs.map(objectID => {
                     return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>
                 })}
             </div>
+            }
             <div className="filter">
                 <h3> Filter By Department</h3>
                 <div className="filter-buttons">

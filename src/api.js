@@ -34,7 +34,7 @@ export function getHarvardObjectById (id) {
 }
 
 export function getHarvardObjectsByClassification (classification) {
-    return apiHarvard.get(`/object?apikey=${apiKey}&&classification=${classification}`)
+    return apiHarvard.get(`/object?apikey=${apiKey}&&classification=${classification}&&size=20`)
 }
 
 export function getAllHarvardClassifications () {

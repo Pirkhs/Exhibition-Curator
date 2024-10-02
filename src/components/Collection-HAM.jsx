@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllHarvardClassifications, getAllHarvardObjects } from '../api'
+import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -11,6 +11,7 @@ export default function CollectionHAM () {
     const [isLoading, setIsLoading] = useState(false)
     const [objects, setObjects] = useState([])
     const [classifications, setClassifications] = useState([])
+    const [classificationFilter, setClassificationFilter] = useState(null)
     const [info, setInfo] = useState([])
 
     useEffect(() => {
@@ -26,6 +27,13 @@ export default function CollectionHAM () {
 
     useEffect(() => {
         setIsLoading("Loading collection")
+        if (classificationFilter) {
+            getHarvardObjectsByClassification(classificationFilter)
+            .then(response => setObjects(response.data.records))
+            .catch(() => setIsError("Unable to filter by classification"))
+            .finally(setIsLoading(false))
+            return
+        }
         getAllHarvardObjects()
         .then(response => {
             const {info, records} = response.data
@@ -34,22 +42,24 @@ export default function CollectionHAM () {
         })
         .catch(() => setIsError("Unable to fetch collection data"))
         .finally(() => {setIsLoading(false)})
-    }, [])
+    }, [classificationFilter])
 
     if (isError) return <Error msg={isError}/>
 
     return ( isLoading ? <Loading msg={isLoading}/> : 
         <section>
+            { objects.length === 0 ? <p className="collection"> No objects to show </p> :
             <div className="collection">
                 { objects.map(object => {
                     return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
                 })}
             </div>
+            }
             <div className="filter">
                 <h3> Filter By Classification </h3>
                 <div className="filter-buttons">
                 { classifications.map(classification => {
-                    return <button key = {classification} onClick={(e) => console.log(e.target)}>{classification}</button>
+                    return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
                 })}
                 </div>
             </div>
