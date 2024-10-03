@@ -2,38 +2,6 @@ li {
     list-style-type: none;
 }
 
-#object-id {
-    float: right;
-    border: 1px solid transparent;
-    color: white;
-    font-weight: 500;
-    border-radius: 1rem;
-    background-color: #1a1a1a;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-
-.single-object-img {
-    width: 100%;
-    border: 1px solid transparent;
-}
-
-.data-from {
-    text-align: center;
-}
-
-.container-button-add {
-    text-align: center;
-}
-
-.container-button-add button {
-    padding: 1.5rem;
-}
-
-.added-to-exhibition {
-    text-align: center;
-}
-
 table.object-data {
     color: grey;
     width: 100%;
@@ -61,3 +29,40 @@ table td {
     padding: 0.5rem;
 
 }
+
+#object-id {
+    float: right;
+    border: 1px solid transparent;
+    color: white;
+    font-weight: 500;
+    border-radius: 1rem;
+    background-color: #1a1a1a;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.single-object-img {
+    width: 100%;
+    border: 1px solid transparent;
+}
+
+.data-from {
+    text-align: center;
+}
+
+.collection-name{
+    opacity: 0.6;
+}
+
+.container-button-add {
+    text-align: center;
+}
+
+.container-button-add button {
+    padding: 1.5rem;
+}
+
+.added-to-exhibition {
+    text-align: center;
+}
+

@@ -104,7 +104,7 @@ export default function SingleObject () {
                 <br/>
 
                 { object.primaryImageSmall || object.primaryimageurl ? <img className="single-object-img" src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
-                <p className="data-from"> Data From: { collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </p> 
+                <p className="data-from"> Data From: <span className="collection-name">{ collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </span> </p> 
                 <div className="container-button-add"><button disabled={isAdded ? true : false} onClick = {() => { handleAddToExhibition() }}>  {isAdded ? "In Your Exhibition" : "Add to My Exhibition"} </button></div> 
             </ul>
         </div>
