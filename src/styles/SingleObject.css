@@ -3,18 +3,19 @@ li {
 }
 
 #object-id {
-    display: inline-block;
-    border: 1px solid black;
-    color: black;
-    font-weight: bold;
+    float: right;
+    border: 1px solid transparent;
+    color: white;
+    font-weight: 500;
     border-radius: 1rem;
-    background-color: grey;
+    background-color: #1a1a1a;
     padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 .single-object-img {
     width: 100%;
-    border: 1px solid lightgreyz
+    border: 1px solid transparent;
 }
 
 .data-from {
@@ -31,4 +32,32 @@ li {
 
 .added-to-exhibition {
     text-align: center;
+}
+
+table.object-data {
+    color: grey;
+    width: 100%;
+    background-color: white;
+    border: 1px solid black;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table thead {
+    background: #ea6153;
+    color: white;
+    font-weight: bold;
+}
+
+table tbody {
+    color: black;
+}
+
+.row-darker {
+    background-color: rgba(0,0,0,0.1);
+}
+
+table td {
+    padding: 0.5rem;
+
 }

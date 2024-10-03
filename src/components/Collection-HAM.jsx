@@ -26,6 +26,7 @@ export default function CollectionHAM () {
     }, [])
 
     useEffect(() => {
+        if (!classificationFilter) return
         setIsLoading("Filtering collection...")
         getHarvardObjectsByClassification(classificationFilter)
         .then(response => setObjects(response.data.records))

@@ -44,36 +44,68 @@ export default function SingleObject () {
         const fetch = collectionId === 1 ? getMetropolitanObjectById(objectId) : getHarvardObjectById(objectId)
 
         fetch
-        .then(response => collectionId === 1 ? setObject(response.data) : setObject(response.data.records[0]))
-        .catch((err) => setIsError(`${err}`))
-        .finally(setIsLoading(false))
+        .then(response => {
+            collectionId === 1 ? setObject(response.data) : setObject(response.data.records[0])
+            setIsLoading("")
+        })
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+    })
 
     }, [])
-
-    if (isError) return <Error msg={isError}/>
 
     const checkIsAlreadyInExhibition = () => {
         const objectsInExhibition = JSON.parse(localStorage.getItem("Exhibition")) || []
         if (objectsInExhibition.length === 0) return
-
+        
         const IdsInExhibition = objectsInExhibition.map(object => `${object.collectionId}/${object.objectId}`)
         setIsAdded(IdsInExhibition.includes(`${collectionId}/${objectId}`))
     }
-
     
+    if (isError) return <Error msg={isError}/>
+
     return isLoading ? <Loading msg="Loading Single Object..."/> : (
         <div className="single-object">
             <ul>
                 <h2> {object.title || <Error msg="No title data"/>} </h2>
                 <li id="object-id"> Id: {objectId} </li>
-                <li> Classification: {object.classification || <Error msg="No classification data"/>} </li>
-                <li> Accession Year: {object.accessionYear || object.accessionyear || <Error msg="No accession year data"/>} </li>
-                <li> Department: {object.department || <Error msg="No department/division data"/>} </li>
-                <li> Credit Line: {object.creditLine || object.creditline || <Error msg="No credit line data"/>} </li>
-                <li> Culture: {object.culture || <Error msg="No culture data"/>} </li>
+
+                <table className="object-data">
+                    <thead>
+                    <tr>
+                        <td> Key </td>
+                        <td> Value </td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td> Classification </td>
+                        <td> {object.classification || "⚠️ No classification data"} </td>
+                    </tr>
+                    <tr className="row-darker">
+                        <td> Accession Year </td>
+                        <td> {object.accessionYear || object.accessionyear || " ⚠️ No accession year data"} </td>
+                    </tr>
+                    <tr>
+                        <td> Department </td>
+                        <td> {object.department || " ⚠️ No department data"} </td>
+                    </tr>
+                    <tr className="row-darker">
+                        <td> Credit Line </td>
+                        <td> {object.creditLine || object.creditline|| " ⚠️ No credit line data"} </td>
+                    </tr>
+                    <tr>
+                        <td> Culture </td>
+                        <td> {object.culture || " ⚠️ No culture data"} </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br/>
+
                 { object.primaryImageSmall || object.primaryimageurl ? <img className="single-object-img" src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
                 <p className="data-from"> Data From: { collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </p> 
-                { isAdded ? <p className="added-to-exhibition"> Already in your Exhibition </p> : <div className="container-button-add"><button onClick = {() => { handleAddToExhibition() }}>  Add to My Exhibition </button></div> }
+                <div className="container-button-add"><button disabled={isAdded ? true : false} onClick = {() => { handleAddToExhibition() }}>  {isAdded ? "In Your Exhibition" : "Add to My Exhibition"} </button></div> 
             </ul>
         </div>
     )
