@@ -15,25 +15,32 @@ export default function CollectionHAM () {
     const [info, setInfo] = useState([])
 
     useEffect(() => {
-        setIsLoading("Loading classifications")
+        setIsLoading("Loading classifications...")
         getAllHarvardClassifications()
         .then(response => {
             const classifications = response.data.records
             setClassifications(classifications.map((classification) => classification.name))
+            setIsLoading("")
         })
-        .catch((err) => {setIsError(`${err}`)})
-        .finally(setIsLoading(false))
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
     }, [])
 
     useEffect(() => {
         if (!classificationFilter) return
         setIsLoading("Filtering collection...")
         getHarvardObjectsByClassification(classificationFilter)
-        .then(response => setObjects(response.data.records))
-        .catch((err) => setIsError(`${err}`))
-        .finally(setIsLoading(false))
+        .then(response => {
+            setObjects(response.data.records)
+            setIsLoading("")
+        })
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
             
-        
     }, [classificationFilter])
 
     useEffect(() => {
@@ -43,9 +50,12 @@ export default function CollectionHAM () {
             const {info, records} = response.data
             setInfo(info)
             setObjects(...[records])
+            setIsLoading("")
         })
-        .catch((err) => setIsError(`${err}`))
-        .finally(() => {setIsLoading(false)})
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
     }, [])
 
     if (isError) return <Error msg={isError}/>

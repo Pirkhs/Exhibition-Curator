@@ -9,7 +9,7 @@ import Error from './Error'
 export default function CollectionMMoA () {
     const [isError, setIsError] = useState(false)
     const [objectIDs, setObjectIDs] = useState([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState("")
     const [departmentFilter, setDepartmentFilter] = useState(null)
 
     const objectDepartments = {
@@ -26,33 +26,37 @@ export default function CollectionMMoA () {
 
     useEffect(() => {
         if (!departmentFilter) return
-        setIsLoading("Filtering Collection")
+        setIsLoading("Filtering Collection...")
         const departmentId = objectDepartments[departmentFilter]
         getMetropolitanObjectsByDepartment(departmentId)
         .then(response => {
             const filteredObjectIDs = response.data.objectIDs.slice(0, 20)
             setObjectIDs(filteredObjectIDs  )
+            setIsLoading("")
         })
-        .catch((err) => setIsError(`${err}`, ))
-        .finally(setIsLoading(false))
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
     }, [departmentFilter])
 
     useEffect(() => {
-        setIsLoading(true)
+        setIsLoading("Loading Collection...")
         getAllMetropolitanObjects()
         .then(response => {
             const objectIDs = response.data.objectIDs.slice(0, 20)
             setObjectIDs(objectIDs)
-            
+            setIsLoading("")
         })
-        .catch((err) => setIsError(`${err}`))
-        .finally(() => setIsLoading(false))
-
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
     }, [])
 
     if (isError) return <Error msg={isError}/>
 
-    return isLoading ? <Loading msg="Loading Metropolitan Collection"/> :(
+    return isLoading ? <Loading msg={isLoading}/> :(
         <section>
             { objectIDs.length === 0 ? <p className="collection"> No objects to show </p> :
             <div className="collection">
