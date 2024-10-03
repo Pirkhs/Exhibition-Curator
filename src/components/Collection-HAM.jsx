@@ -21,28 +21,31 @@ export default function CollectionHAM () {
             const classifications = response.data.records
             setClassifications(classifications.map((classification) => classification.name))
         })
-        .catch(() => {setIsError("Unable to fetch classification data")})
+        .catch((err) => {setIsError(`${err}`)})
         .finally(setIsLoading(false))
     }, [])
 
     useEffect(() => {
-        setIsLoading("Loading collection")
-        if (classificationFilter) {
-            getHarvardObjectsByClassification(classificationFilter)
-            .then(response => setObjects(response.data.records))
-            .catch(() => setIsError("Unable to filter by classification"))
-            .finally(setIsLoading(false))
-            return
-        }
+        setIsLoading("Filtering collection...")
+        getHarvardObjectsByClassification(classificationFilter)
+        .then(response => setObjects(response.data.records))
+        .catch((err) => setIsError(`${err}`))
+        .finally(setIsLoading(false))
+            
+        
+    }, [classificationFilter])
+
+    useEffect(() => {
+        setIsLoading("Loading collection...")
         getAllHarvardObjects()
         .then(response => {
             const {info, records} = response.data
             setInfo(info)
             setObjects(...[records])
         })
-        .catch(() => setIsError("Unable to fetch collection data"))
+        .catch((err) => setIsError(`${err}`))
         .finally(() => {setIsLoading(false)})
-    }, [classificationFilter])
+    }, [])
 
     if (isError) return <Error msg={isError}/>
 

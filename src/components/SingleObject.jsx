@@ -45,7 +45,7 @@ export default function SingleObject () {
 
         fetch
         .then(response => collectionId === 1 ? setObject(response.data) : setObject(response.data.records[0]))
-        .catch(() => setIsError("Unavailable to fetch data"))
+        .catch((err) => setIsError(`${err}`))
         .finally(setIsLoading(false))
 
     }, [])

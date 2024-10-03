@@ -32,7 +32,7 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId}) {
                 image: response.data.primaryImageSmall
             })
         })
-        .catch(() => setIsError("Data Fetch Unsuccessful, Please Try Again"))
+        .catch((err) => setIsError(`${err}`))
         .finally(() => setIsLoading(false))
 
     }, [])

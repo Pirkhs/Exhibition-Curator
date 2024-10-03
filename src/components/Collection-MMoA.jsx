@@ -25,29 +25,30 @@ export default function CollectionMMoA () {
     }
 
     useEffect(() => {
-        setIsLoading(true)
-        if (departmentFilter) {
-            const departmentId = objectDepartments[departmentFilter]
-            getMetropolitanObjectsByDepartment(departmentId)
-            .then(response => {
-                const objectIDs = response.data.objectIDs.slice(0, 20)
-                setObjectIDs(objectIDs)
-            })
-            .catch(() => setIsError("Unable to fetch objects"))
-            .finally(setIsLoading(false))
-            return
-        }
+        if (!departmentFilter) return
+        setIsLoading("Filtering Collection")
+        const departmentId = objectDepartments[departmentFilter]
+        getMetropolitanObjectsByDepartment(departmentId)
+        .then(response => {
+            const filteredObjectIDs = response.data.objectIDs.slice(0, 20)
+            setObjectIDs(filteredObjectIDs  )
+        })
+        .catch((err) => setIsError(`${err}`, ))
+        .finally(setIsLoading(false))
+    }, [departmentFilter])
 
+    useEffect(() => {
+        setIsLoading(true)
         getAllMetropolitanObjects()
         .then(response => {
             const objectIDs = response.data.objectIDs.slice(0, 20)
             setObjectIDs(objectIDs)
             
         })
-        .catch(() => setIsError("Unable to fetch collection"))
+        .catch((err) => setIsError(`${err}`))
         .finally(() => setIsLoading(false))
 
-    }, [departmentFilter])
+    }, [])
 
     if (isError) return <Error msg={isError}/>
 
