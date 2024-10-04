@@ -8,10 +8,23 @@ import { getMetropolitanObjectById } from '../api'
 
 import '../styles/ObjectCard.css'
 
-export default function ObjectCardHAM ({collectionId, objectData, objectId}) { 
+export default function ObjectCardHAM ({collectionId, objectData, objectId, inExhibition = false}) { 
     const [object, setObject] = useState({})
     const [isError, setIsError] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)   
+    const [isLoading, setIsLoading] = useState("")   
+    const [removingObject, setRemovingObject] = useState(false)
+
+    const handleRemoveObject = () => {
+        const currExhibition = JSON.parse(localStorage.getItem("Exhibition"))
+        const filterExhibition = currExhibition.filter(object => (object.objectId !== objectId) || (object.collectionId !== collectionId))
+        localStorage.setItem("Exhibition", JSON.stringify(filterExhibition))
+        setRemovingObject(true)
+    }
+
+    useEffect(() => {
+        if (!removingObject) return
+        setObject({})
+    }, [removingObject])
 
     useEffect(() => {
         if (collectionId === 2) {
@@ -43,12 +56,16 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId}) {
 
     return isLoading ? <Loading msg={isLoading}/> : (
         <>
+            { JSON.stringify(object) === "{}" ? <div className="object-card"> <p> Object Removed from Exhibition </p> </div> :
             <div className="object-card">
                 { object.title ? <p> {object.title} </p> : <Error msg="No Title Data"/>}
                 { object.image ? <img src={object.image}/> : <Error msg="No Image Data"/>}
                 <p> <span className='object-id'> Id No. </span> {object.id} </p>
-                <Link to={`/collections/${collectionId}/${object.id}`}> <button> View More </button> </Link>
+                <Link to={`/collections/${collectionId}/${object.id}`}> <button className="btn-view-more"> View More </button> </Link>
+                <br></br>
+                { inExhibition ? <button className="btn-remove" onClick={() => handleRemoveObject()}> Remove 🗑️ </button> : <p></p> }
             </div>
+            }
         </>
     )
 }

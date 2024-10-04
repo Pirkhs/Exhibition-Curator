@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import '../styles/App.css'
 import '../styles/Exhibition.css'
+
 import ObjectCard from './ObjectCard'
 
 export default function Exhibition () {
@@ -12,16 +14,16 @@ export default function Exhibition () {
     
     }, [])
 
-    return exhibition.length === 0 ? <p> Start by adding some objects to your collection!</p>
+    return exhibition.length === 0 ? <div className="single-text-center"> <p> Start by adding some objects to your exhibition!</p> </div>
     : (
         <>
+            <div className="single-text-center"> <p> Warning! Exhibition is lost when your session has ended </p> </div>
         <h2> My Exhibition </h2>
         <div className="exhibition">
             { exhibition.map(object => {
-                return <ObjectCard key={object.objectId} objectId={object.objectId} objectData={object} collectionId={object.collectionId}/>
+                return <ObjectCard key={object.objectId} objectId={object.objectId} objectData={object} collectionId={object.collectionId} inExhibition={true}/>
             }) }
         </div>
-        <p> Warning! Exhibition is lost when your session has ended </p>
         </>
     )
 }
