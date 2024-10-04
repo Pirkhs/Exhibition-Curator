@@ -12,19 +12,13 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
     const [object, setObject] = useState({})
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState("")   
-    const [removingObject, setRemovingObject] = useState(false)
 
     const handleRemoveObject = () => {
         const currExhibition = JSON.parse(localStorage.getItem("Exhibition"))
         const filterExhibition = currExhibition.filter(object => (object.objectId !== objectId) || (object.collectionId !== collectionId))
         localStorage.setItem("Exhibition", JSON.stringify(filterExhibition))
-        setRemovingObject(true)
-    }
-
-    useEffect(() => {
-        if (!removingObject) return
         setObject({})
-    }, [removingObject])
+    }
 
     useEffect(() => {
         if (collectionId === 2) {
