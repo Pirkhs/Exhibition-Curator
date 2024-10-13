@@ -9,6 +9,7 @@
     border-radius: 50%;
     box-sizing: border-box;
     animation: 1s rotate linear infinite;
+    z-index: -100;
  }
  .loader:before , .loader:after{
     content: '';

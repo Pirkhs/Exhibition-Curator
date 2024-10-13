@@ -45,7 +45,7 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
     }, [])
     
     { if (isError) {
-        return <Error msg={isError}/>
+        return <div className="object-card"> <Error msg={isError}/> </div>
     }}
 
     return isLoading ? <Loading msg={isLoading}/> : (

@@ -25,6 +25,10 @@ export function getMetropolitanObjectsByDepartment (departmentId) {
     return apiMetropolitan.get(`/objects?departmentIds=${departmentId}`)
 }
 
+export function getMetropolitanObjectBySearchTerm (searchTerm) {
+    return apiMetropolitan.get(`https://collectionapi.metmuseum.org/public/collection/v1/search?q=${searchTerm}`)
+}
+
 export function getAllHarvardObjects (pageNo = 1) {
     return apiHarvard.get(`/object?apikey=${apiKey}&&size=20&&page=${pageNo}`)
 }
@@ -39,4 +43,8 @@ export function getHarvardObjectsByClassification (classification) {
 
 export function getAllHarvardClassifications () {
     return apiHarvard.get(`/classification?apikey=${apiKey}`)
+}
+
+export function getHarvardObjectsBySearchTerm (searchTerm) {
+    return apiHarvard.get(`https://api.harvardartmuseums.org/object?apikey=${apiKey}&&q=title:${searchTerm}&&size=20`)
 }

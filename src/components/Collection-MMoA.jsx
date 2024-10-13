@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanObjectsByDepartment } from '../api'
+import { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment } from '../api'
+// import { handleSearchTerm } from "./Collections"
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -11,6 +12,7 @@ export default function CollectionMMoA () {
     const [objectIDs, setObjectIDs] = useState([])
     const [isLoading, setIsLoading] = useState("")
     const [departmentFilter, setDepartmentFilter] = useState(null)
+    const [searchTerm, setSearchTerm] = useState(null)
 
     const objectDepartments = {
         "American Decorative Arts": 1,
@@ -23,6 +25,26 @@ export default function CollectionMMoA () {
         "Medieval Art": 17,
         "Modern Art": 21
     }
+
+    useEffect(() => {
+        if (!searchTerm) return
+        setIsLoading("Searching Collection...")
+        getMetropolitanObjectBySearchTerm(searchTerm)
+        .then(response => {
+            if (response.data.objectIDs === null) { 
+                setIsLoading("")
+                setObjectIDs([])
+                return
+            }
+            const searchedObjectIDs = response.data.objectIDs.slice(0, 20)
+            setObjectIDs(searchedObjectIDs)
+            setIsLoading("")
+        })
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
+    }, [searchTerm])
 
     useEffect(() => {
         if (!departmentFilter) return
@@ -56,9 +78,15 @@ export default function CollectionMMoA () {
 
     if (isError) return <Error msg={isError}/>
 
-    return isLoading ? <Loading msg={isLoading}/> :(
+    return isLoading ? <div className="container-loading"><Loading msg={isLoading}/></div> :(
+        <>
+        <form className="searchbar" onSubmit={(e) => { e.preventDefault(); setSearchTerm(e.target["query"].value)}}> 
+            Search for: <input placeholder=" e.g. sunflowers" type="search" name="query"/>
+            <button type="submit">Search</button>
+        </form>
+        <br></br>
         <section>
-            { objectIDs.length === 0 ? <p className="collection"> No objects to show </p> :
+            { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No objects to show </p> :
             <div className="collection">
                 {objectIDs.map(objectID => {
                     return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>
@@ -74,5 +102,6 @@ export default function CollectionMMoA () {
                 </div>
             </div>
         </section>
+        </>
     )
 }

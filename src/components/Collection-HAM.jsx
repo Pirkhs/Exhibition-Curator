@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification } from '../api'
+import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsBySearchTerm } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -13,6 +13,7 @@ export default function CollectionHAM () {
     const [classifications, setClassifications] = useState([])
     const [classificationFilter, setClassificationFilter] = useState(null)
     const [info, setInfo] = useState([])
+    const [searchTerm, setSearchTerm] = useState(null)
 
     useEffect(() => {
         setIsLoading("Loading classifications...")
@@ -58,11 +59,31 @@ export default function CollectionHAM () {
         })
     }, [])
 
+    useEffect(() => {
+        if (!searchTerm) return
+        setIsLoading("Searching Collection...")
+        getHarvardObjectsBySearchTerm(searchTerm)
+        .then(response => {
+            setObjects(response.data.records)
+            setIsLoading("")
+        })
+        .catch((err) => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
+    }, [searchTerm])
+
     if (isError) return <Error msg={isError}/>
 
-    return ( isLoading ? <Loading msg={isLoading}/> : 
+    return ( isLoading ? <div className='container-loading'><Loading msg={isLoading}/> </div>: 
+        <>
+        <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }}className="searchbar"> 
+            Search for: <input placeholder=" e.g. sunflowers" type="search" name="query" /> 
+            <button type="submit">Search</button>
+        </form>
         <section>
-            { objects.length === 0 ? <p className="collection"> No objects to show </p> :
+            <br></br>
+            { objects.length === 0 || objects === null ? <p className="collection"> No objects to show </p> :
             <div className="collection">
                 { objects.map(object => {
                     return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
@@ -78,5 +99,6 @@ export default function CollectionHAM () {
                 </div>
             </div>
         </section>
+        </>
     )
 }

@@ -9,6 +9,10 @@ h3 {
     text-align: center;
 }
 
+.container-loading {
+    margin-bottom: 100%;
+}
+
 section {
     display: flex;
     flex-direction: row;
@@ -37,4 +41,8 @@ section {
     height: 100%;
     color: white;
     background-color: red;
+}
+
+::placeholder {
+    opacity: 1
 }
