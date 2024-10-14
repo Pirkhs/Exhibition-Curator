@@ -5,7 +5,7 @@ export default function Loading ({msg}) {
         <>
             <span className="loader"></span> 
             <br/>
-            <p> {msg} </p>
+            <i> <p> {msg} </p> </i>
         </>
     )
 }
