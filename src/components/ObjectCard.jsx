@@ -7,11 +7,17 @@ import Loading from './Loading.jsx'
 import { getMetropolitanObjectById } from '../api'
 
 import '../styles/ObjectCard.css'
+import Modal from './Modal.jsx'
 
 export default function ObjectCardHAM ({collectionId, objectData, objectId, inExhibition = false}) { 
     const [object, setObject] = useState({})
     const [isError, setIsError] = useState(false)
     const [isLoading, setIsLoading] = useState("")   
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const handleModalOpenState = (newState) => {
+        setIsModalOpen(newState)
+    }
 
     const handleRemoveObject = () => {
         const currExhibition = JSON.parse(localStorage.getItem("Exhibition"))
@@ -57,7 +63,8 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
                 <p> <span className='object-id'> Id No. </span> {object.id} </p>
                 <Link to={`/collections/${collectionId}/${object.id}`}> <button className="btn-view-more"> View More </button> </Link>
                 <br></br>
-                { inExhibition ? <button className="btn-remove" onClick={() => handleRemoveObject()}> Remove 🗑️ </button> : <p></p> }
+                { inExhibition ? <button className="btn-remove" onClick={() => handleModalOpenState(true)}> Remove 🗑️ </button> : <></> }
+                { isModalOpen ? <Modal msg={`Remove "${object.title}" from your exhibition?`} funcConfirm={handleRemoveObject} isModalOpen={true} handleModalOpenState={handleModalOpenState}/> : <></>}
             </div>
             }
         </>
