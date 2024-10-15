@@ -51,6 +51,7 @@ export default function SingleObject () {
         .catch((err) => {
             setIsError(`${err}`)
             setIsLoading("")
+
     })
 
     }, [])
@@ -66,7 +67,8 @@ export default function SingleObject () {
     if (isError) return <Error msg={isError}/>
 
     return isLoading ? <Loading msg="Loading Single Object..."/> : (
-        <div className="single-object">
+        <section className="single-object">
+            { JSON.stringify(object) === "{}" || object === undefined ? <p> Object could not be found </p> : 
             <ul>
                 <h2> {object.title || <Error msg="No title data"/>} </h2>
                 <li id="object-id"> Id: {objectId} </li>
@@ -104,9 +106,10 @@ export default function SingleObject () {
                 <br/>
 
                 { object.primaryImageSmall || object.primaryimageurl ? <img className="single-object-img" src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
-                <p className="data-from"> Data From: <span className="collection-name">{ collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </span> </p> 
+                <figcaption className="data-from"> Data From: <span className="collection-name">{ collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </span> </figcaption> 
                 <div className="container-button-add"><button disabled={isAdded ? true : false} onClick = {() => { handleAddToExhibition() }}>  {isAdded ? "In Your Exhibition" : "Add to My Exhibition"} </button></div> 
             </ul>
-        </div>
+            }
+        </section>
     )
 }

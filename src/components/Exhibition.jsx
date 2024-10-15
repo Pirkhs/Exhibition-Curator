@@ -17,7 +17,7 @@ export default function Exhibition () {
     return exhibition.length === 0 ? <div className="single-text-center"> <p> Start by adding some objects to your exhibition!</p> </div>
     : (
         <>
-            <div className="single-text-center"> <p> Warning! Exhibition is lost when your session has ended </p> </div>
+            <summary className="single-text-center"> <p> Warning! Exhibition is lost when your session has ended </p> </summary>
         <h2> My Exhibition </h2>
         <div className="exhibition">
             { exhibition.map(object => {

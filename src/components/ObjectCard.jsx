@@ -51,13 +51,13 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
     }, [])
     
     { if (isError) {
-        return <div className="object-card"> <Error msg={isError}/> </div>
+        return <article className="object-card"> <Error msg={isError}/> </article>
     }}
 
     return isLoading ? <Loading msg={isLoading}/> : (
         <>
             { JSON.stringify(object) === "{}" ? <div className="object-card"> <p> Object Removed from Exhibition </p> </div> :
-            <div className="object-card">
+            <article className="object-card">
                 { object.title ? <p> {object.title} </p> : <Error msg="No Title Data"/>}
                 { object.image ? <div className="loading-image"> <img src={object.image} alt={object.title} loading="lazy"/> </div> : <Error msg="No Image Data"/>}
                 <p> <span className='object-id'> Id No. </span> {object.id} </p>
@@ -65,7 +65,7 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
                 <br></br>
                 { inExhibition ? <button className="btn-remove" onClick={() => handleModalOpenState(true)}> Remove 🗑️ </button> : <></> }
                 { isModalOpen ? <Modal msg={`Remove "${object.title}" from your exhibition?`} funcConfirm={handleRemoveObject} isModalOpen={true} handleModalOpenState={handleModalOpenState}/> : <></>}
-            </div>
+            </article>
             }
         </>
     )

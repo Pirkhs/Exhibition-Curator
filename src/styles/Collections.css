@@ -13,7 +13,7 @@ h3 {
     margin-bottom: 100%;
 }
 
-section {
+.container-collection {
     display: flex;
     flex-direction: row;
 }

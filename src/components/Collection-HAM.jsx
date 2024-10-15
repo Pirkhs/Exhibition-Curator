@@ -75,30 +75,30 @@ export default function CollectionHAM () {
 
     if (isError) return <Error msg={isError}/>
 
-    return ( isLoading ? <div className='container-loading'><Loading msg={isLoading}/> </div>: 
+    return ( isLoading ? <div className='container-loading'><Loading msg={isLoading}/> </div> : 
         <>
-        <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }}className="searchbar"> 
+        <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }} className="searchbar"> 
             Search for: <input placeholder=" e.g. sunflowers" type="search" name="query" /> 
             <button type="submit">Search</button>
         </form>
-        <section>
+        <div className="container-collection">
             <br></br>
             { objects.length === 0 || objects === null ? <p className="collection"> No objects to show </p> :
-            <div className="collection">
+            <section className="collection">
                 { objects.map(object => {
                     return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
                 })}
-            </div>
+            </section>
             }
-            <div className="filter">
+            <aside className="filter">
                 <h3> Filter By Classification </h3>
                 <div className="filter-buttons">
                 { classifications.map(classification => {
                     return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
                 })}
                 </div>
-            </div>
-        </section>
+            </aside>
+        </div>
         </>
     )
 }

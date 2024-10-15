@@ -5,15 +5,15 @@ import CollectionMMoA from './Collection-MMoA'
 export default function Collections () {
     return (
         <>
-        <div className="collections">
+        <section>
             <h2> Metropolitan Museum of Art </h2>
             <CollectionMMoA/>
-        </div>
+        </section>
 
-        <div className="collections">
+        <section>
             <h2> Harvard Arts Museum </h2>
             <CollectionHAM/>
-        </div>
+        </section>
         </>
     )
 }

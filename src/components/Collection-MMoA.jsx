@@ -84,23 +84,23 @@ export default function CollectionMMoA () {
             <button type="submit">Search</button>
         </form>
         <br></br>
-        <section>
+        <div className="container-collection">
             { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No objects to show </p> :
-            <div className="collection">
+            <section className="collection">
                 {objectIDs.map(objectID => {
                     return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>
                 })}
-            </div>
+            </section>
             }
-            <div className="filter">
+            <aside className="filter">
                 <h3> Filter By Department</h3>
                 <div className="filter-buttons">
                     { Object.keys(objectDepartments).map(department => {
                         return <button key = {department} onClick={() => setDepartmentFilter(department)}>{department}</button>
                     })}
                 </div>
-            </div>
-        </section>
+            </aside>
+        </div>
         </>
     )
 }
