@@ -9,6 +9,10 @@ h3 {
     text-align: center;
 }
 
+::placeholder {
+    opacity: 1
+}
+
 .container-loading {
     margin-bottom: 100%;
 }
@@ -43,6 +47,8 @@ h3 {
     background-color: red;
 }
 
-::placeholder {
-    opacity: 1
+.container-page-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
 }

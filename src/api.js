@@ -48,3 +48,7 @@ export function getAllHarvardClassifications () {
 export function getHarvardObjectsBySearchTerm (searchTerm) {
     return apiHarvard.get(`https://api.harvardartmuseums.org/object?apikey=${apiKey}&&q=title:${searchTerm}&&size=20`)
 }
+
+export function getHarvardObjectsByPage(url) {
+    return apiHarvard.get(url)
+}

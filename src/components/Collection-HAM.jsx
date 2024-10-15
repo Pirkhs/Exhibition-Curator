@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsBySearchTerm } from '../api'
+import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsByPage, getHarvardObjectsBySearchTerm } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -14,13 +14,33 @@ export default function CollectionHAM () {
     const [classificationFilter, setClassificationFilter] = useState(null)
     const [info, setInfo] = useState([])
     const [searchTerm, setSearchTerm] = useState(null)
+    const [pageExists, setPageExists] = useState(true)
+
+    const handlePageNav = (url) => {
+        if (!url) {
+            setPageExists(false)
+            return
+        }
+        setPageExists(true)
+        setIsLoading("Loading Page...")
+        getHarvardObjectsByPage(url.slice(33))
+        .then(response => {
+            setObjects(response.data.records)
+            setInfo(response.data.info)
+            setIsLoading("")
+        })
+        .catch(err => {
+            setIsError(err)
+            setIsLoading("")
+        })
+    }
 
     useEffect(() => {
         setIsLoading("Loading classifications...")
         getAllHarvardClassifications()
         .then(response => {
             const classifications = response.data.records
-            setClassifications(classifications.map((classification) => classification.name))
+            setClassifications(classifications.map((classification) => classification.name)) 
             setIsLoading("")
         })
         .catch((err) => {
@@ -32,9 +52,11 @@ export default function CollectionHAM () {
     useEffect(() => {
         if (!classificationFilter) return
         setIsLoading("Filtering collection...")
+        setPageExists(true)
         getHarvardObjectsByClassification(classificationFilter)
         .then(response => {
             setObjects(response.data.records)
+            setInfo(response.data.info)
             setIsLoading("")
         })
         .catch((err) => {
@@ -62,9 +84,11 @@ export default function CollectionHAM () {
     useEffect(() => {
         if (!searchTerm) return
         setIsLoading("Searching Collection...")
+        setPageExists(true)
         getHarvardObjectsBySearchTerm(searchTerm)
         .then(response => {
             setObjects(response.data.records)
+            setInfo(response.data.info)
             setIsLoading("")
         })
         .catch((err) => {
@@ -74,7 +98,6 @@ export default function CollectionHAM () {
     }, [searchTerm])
 
     if (isError) return <Error msg={isError}/>
-
     return ( isLoading ? <div className='container-loading'><Loading msg={isLoading}/> </div> : 
         <>
         <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }} className="searchbar"> 
@@ -84,7 +107,7 @@ export default function CollectionHAM () {
         <div className="container-collection">
             <br></br>
             { objects.length === 0 || objects === null ? <p className="collection"> No objects to show </p> :
-            <section className="collection">
+            <section className="collection" id="collection">
                 { objects.map(object => {
                     return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
                 })}
@@ -99,6 +122,13 @@ export default function CollectionHAM () {
                 </div>
             </aside>
         </div>
+        <br></br>
+        <div className="container-page-nav">
+            <button onClick={() => {handlePageNav(info.prev)}}> Prev </button>
+            <p> Page {info.page} </p>
+            <button onClick={() => handlePageNav(info.next)}> Next </button>
+        </div>
+            { pageExists ? <></> : <p> Page does not exist </p> }
         </>
     )
 }
