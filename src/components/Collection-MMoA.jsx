@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment } from '../api'
+import getMetropolitanObjectsByPage, { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -12,6 +12,9 @@ export default function CollectionMMoA () {
     const [isLoading, setIsLoading] = useState("")
     const [departmentFilter, setDepartmentFilter] = useState(null)
     const [searchTerm, setSearchTerm] = useState(null)
+    const [pageNo, setPageNo] = useState(1)
+    const [pageExists, setPageExists] = useState(true)
+    const [responseURL, setReponseURL] = useState("")
 
     const objectDepartments = {
         "American Decorative Arts": 1,
@@ -25,9 +28,31 @@ export default function CollectionMMoA () {
         "Modern Art": 21
     }
 
+    const handlePageNav = (newPageNumber) => {
+        if (newPageNumber === 0) {
+            setPageExists(false)
+            return
+        }
+        setPageExists(true)
+        setPageNo(newPageNumber)
+        setIsLoading("Loading New Page...")
+        const endpoint = responseURL.split("/").splice(6).join("/")
+        getMetropolitanObjectsByPage(endpoint)
+        .then(response => {
+            setReponseURL(response.request.responseURL)
+            setObjectIDs(response.data.objectIDs.slice((newPageNumber - 1) * 20, newPageNumber * 20))
+            setIsLoading("")
+        })
+        .catch(err => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
+    }
+
     useEffect(() => {
         if (!searchTerm) return
         setIsLoading("Searching Collection...")
+        setPageNo(1)
         getMetropolitanObjectBySearchTerm(searchTerm)
         .then(response => {
             if (response.data.objectIDs === null) { 
@@ -36,6 +61,7 @@ export default function CollectionMMoA () {
                 return
             }
             const searchedObjectIDs = response.data.objectIDs.slice(0, 20)
+            setReponseURL(response.request.responseURL)
             setObjectIDs(searchedObjectIDs)
             setIsLoading("")
         })
@@ -48,9 +74,11 @@ export default function CollectionMMoA () {
     useEffect(() => {
         if (!departmentFilter) return
         setIsLoading("Filtering Collection...")
+        setPageNo(1)
         const departmentId = objectDepartments[departmentFilter]
         getMetropolitanObjectsByDepartment(departmentId)
         .then(response => {
+            setReponseURL(response.request.responseURL)
             const filteredObjectIDs = response.data.objectIDs.slice(0, 20)
             setObjectIDs(filteredObjectIDs  )
             setIsLoading("")
@@ -65,6 +93,7 @@ export default function CollectionMMoA () {
         setIsLoading("Loading Collection...")
         getAllMetropolitanObjects()
         .then(response => {
+            setReponseURL(response.request.responseURL)
             const objectIDs = response.data.objectIDs.slice(0, 20)
             setObjectIDs(objectIDs)
             setIsLoading("")
@@ -101,6 +130,13 @@ export default function CollectionMMoA () {
                 </div>
             </aside>
         </div>
+        <br></br>
+        <div className="container-page-nav">
+            <button onClick={() => {handlePageNav(pageNo - 1)}}> Prev </button>
+            <p> Page {pageNo} </p>
+            <button onClick={() => handlePageNav(pageNo + 1)}> Next </button>
+        </div>
+        { pageExists ? <></> : <p> Page does not exist </p> }
         </>
     )
 }
