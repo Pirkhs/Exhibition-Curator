@@ -8,6 +8,7 @@ import { getMetropolitanObjectById } from '../api'
 
 import '../styles/ObjectCard.css'
 import Modal from './Modal.jsx'
+import ImageComponent from './Image.jsx'
 
 export default function ObjectCardHAM ({collectionId, objectData, objectId, inExhibition = false}) { 
     const [object, setObject] = useState({})
@@ -59,7 +60,7 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
             { JSON.stringify(object) === "{}" ? <div className="object-card"> <p> Object Removed from Exhibition </p> </div> :
             <article className="object-card">
                 { object.title ? <p> {object.title} </p> : <Error msg="No Title Data"/>}
-                { object.image ? <div className="loading-image"> <img src={object.image} alt={object.title} loading="lazy"/> </div> : <Error msg="No Image Data"/>}
+                { object.image ? <ImageComponent src={object.image}/> : <Error msg="No Image Data"/>}
                 <p> <span className='object-id'> Id No. </span> {object.id} </p>
                 <Link to={`/collections/${collectionId}/${object.id}`}> <button className="btn-view-more"> View More </button> </Link>
                 <br></br>

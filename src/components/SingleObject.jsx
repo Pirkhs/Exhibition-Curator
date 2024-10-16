@@ -4,9 +4,11 @@ import { useState, useEffect } from "react"
 import { getHarvardObjectById, getMetropolitanObjectById } from "../api"
 
 import Error from "./Error"
+import Loading from "./Loading"
+import ImageComponent from "./Image"
 
 import '../styles/SingleObject.css'
-import Loading from "./Loading"
+
 
 export default function SingleObject () {
     const {collection_id, object_id} = useParams()
@@ -105,7 +107,7 @@ export default function SingleObject () {
                 </table>
                 <br/>
 
-                { object.primaryImageSmall || object.primaryimageurl ? <img className="single-object-img" src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
+                { object.primaryImageSmall || object.primaryimageurl ? <ImageComponent src={object.primaryImageSmall || object.primaryimageurl}/> : <Error msg="No image data"/>}
                 <figcaption className="data-from"> Data From: <span className="collection-name">{ collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </span> </figcaption> 
                 <br/>
                 <div className="container-button-add"><button disabled={isAdded ? true : false} onClick = {() => { handleAddToExhibition() }}>  {isAdded ? "In Your Exhibition" : "Add to My Exhibition"} </button></div> 
