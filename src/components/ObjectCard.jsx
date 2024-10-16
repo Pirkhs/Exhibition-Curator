@@ -60,7 +60,7 @@ export default function ObjectCardHAM ({collectionId, objectData, objectId, inEx
             { JSON.stringify(object) === "{}" ? <div className="object-card"> <p> Object Removed from Exhibition </p> </div> :
             <article className="object-card">
                 { object.title ? <p> {object.title} </p> : <Error msg="No Title Data"/>}
-                { object.image ? <ImageComponent src={object.image}/> : <Error msg="No Image Data"/>}
+                { object.image ? <ImageComponent src={object.image} alt={`An image of ${object.title}`}/> : <Error msg="No Image Data"/>}
                 <p> <span className='object-id'> Id No. </span> {object.id} </p>
                 <Link to={`/collections/${collectionId}/${object.id}`}> <button className="btn-view-more"> View More </button> </Link>
                 <br></br>

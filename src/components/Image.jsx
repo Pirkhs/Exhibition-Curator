@@ -4,7 +4,7 @@ import { Blurhash } from "react-blurhash"
 import '../styles/Image.css'
 import Loading from "./Loading"
 
-export default function ImageComponent ({ src }) {
+export default function ImageComponent ({ src, alt }) {
     const [imageLoaded, setImageLoaded] = useState(false)
 
     useEffect(() => {
@@ -23,7 +23,8 @@ export default function ImageComponent ({ src }) {
         <img
             className="img-centered"
             src = {src}
-            alt = ""
+            alt = {alt}
+            loading = "lazy"
         />
         </div>
     </>
