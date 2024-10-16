@@ -34,10 +34,18 @@ h3 {
     width: 20%;
 }
 
+#filter-text {
+    color: darkgrey;
+}
+
 .filter-buttons {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+}
+
+.button-active {
+    color: green
 }
 
 .table-error-cell {

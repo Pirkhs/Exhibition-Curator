@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import getMetropolitanObjectsByPage, { getAllMetropolitanObjects, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment } from '../api'
+import { getMetropolitanObjectsByPage, getAllMetropolitanObjects, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment, getMetropolitanDepartments } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -15,18 +15,8 @@ export default function CollectionMMoA () {
     const [pageNo, setPageNo] = useState(1)
     const [pageExists, setPageExists] = useState(true)
     const [responseURL, setReponseURL] = useState("")
-
-    const objectDepartments = {
-        "American Decorative Arts": 1,
-        "Ancient Near Eastern Art": 3,
-        "Arts of Africa, Oceania, and the Americas": 5,
-        "Asian Art": 6,
-        "Egyptian Art": 10,
-        "Greek and Roman Art": 13,
-        "Islamic Art": 14,
-        "Medieval Art": 17,
-        "Modern Art": 21
-    }
+    const [departments, setDepartments] = useState([])
+    const [departmentsLoaded, setDepartmentsLoaded] = useState(false)
 
     const handlePageNav = (newPageNumber) => {
         if (newPageNumber === 0) {
@@ -48,6 +38,19 @@ export default function CollectionMMoA () {
             setIsLoading("")
         })
     }
+
+    useEffect(() => {
+        setDepartmentsLoaded(true)
+        getMetropolitanDepartments()
+        .then(response => {
+            setDepartments(response.data.departments)
+            setDepartmentsLoaded(true)
+        })
+        .catch(err => {
+            setIsError(`${err}`)
+            setDepartmentsLoaded(true)
+        })
+    }, [])
 
     useEffect(() => {
         if (!searchTerm) return
@@ -73,9 +76,9 @@ export default function CollectionMMoA () {
 
     useEffect(() => {
         if (!departmentFilter) return
+        const {departmentId} = departmentFilter
         setIsLoading("Filtering Collection...")
         setPageNo(1)
-        const departmentId = objectDepartments[departmentFilter]
         getMetropolitanObjectsByDepartment(departmentId)
         .then(response => {
             setReponseURL(response.request.responseURL)
@@ -121,14 +124,20 @@ export default function CollectionMMoA () {
                 })}
             </section>
             }
+            {
+            departmentsLoaded ?
             <aside className="filter">
                 <h3> Filter By Department</h3>
+                { departmentFilter ? 
+                <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> 
+                : <></>} 
                 <div className="filter-buttons">
-                    { Object.keys(objectDepartments).map(department => {
-                        return <button key = {department} onClick={() => setDepartmentFilter(department)}>{department}</button>
+                    { departments.map(department => {
+                        return <button key = {department.departmentId} onClick={() => setDepartmentFilter(department)}>{department.displayName}</button>
                     })}
                 </div>
-            </aside>
+            </aside> : <Loading msg="Loading Departments"/>
+            }
         </div>
         <br></br>
         <div className="container-page-nav">

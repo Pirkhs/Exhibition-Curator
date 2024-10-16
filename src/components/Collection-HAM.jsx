@@ -51,7 +51,7 @@ export default function CollectionHAM () {
 
     useEffect(() => {
         if (!classificationFilter) return
-        setIsLoading("Filtering collection...")
+        setIsLoading("Filtering Collection...")
         setPageExists(true)
         getHarvardObjectsByClassification(classificationFilter)
         .then(response => {
@@ -67,7 +67,7 @@ export default function CollectionHAM () {
     }, [classificationFilter])
 
     useEffect(() => {
-        setIsLoading("Loading collection...")
+        setIsLoading("Loading Collection...")
         getAllHarvardObjects()
         .then(response => {
             const {info, records} = response.data
@@ -115,6 +115,9 @@ export default function CollectionHAM () {
             }
             <aside className="filter">
                 <h3> Filter By Classification </h3>
+                { classificationFilter ? 
+                <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
+                : <></>} 
                 <div className="filter-buttons">
                 { classifications.map(classification => {
                     return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>

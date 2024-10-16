@@ -29,7 +29,7 @@ export function getMetropolitanObjectBySearchTerm (searchTerm) {
     return apiMetropolitan.get(`/search?q=${searchTerm}`)
 }
 
-export default function getMetropolitanObjectsByPage (endpoint) {
+export function getMetropolitanObjectsByPage (endpoint) {
     return apiMetropolitan.get(endpoint)
 }
 
@@ -46,7 +46,7 @@ export function getHarvardObjectsByClassification (classification) {
 }
 
 export function getAllHarvardClassifications () {
-    return apiHarvard.get(`/classification?apikey=${apiKey}`)
+    return apiHarvard.get(`/classification?apikey=${apiKey}&&size=20`)
 }
 
 export function getHarvardObjectsBySearchTerm (searchTerm) {
@@ -56,3 +56,4 @@ export function getHarvardObjectsBySearchTerm (searchTerm) {
 export function getHarvardObjectsByPage(url) {
     return apiHarvard.get(url)
 }
+
