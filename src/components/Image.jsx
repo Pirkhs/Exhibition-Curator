@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import { Blurhash } from "react-blurhash"
 
 import '../styles/Image.css'
 import Loading from "./Loading"

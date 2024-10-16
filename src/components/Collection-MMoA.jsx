@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import getMetropolitanObjectsByPage, { getAllMetropolitanObjects, getMetropolitanObjectById, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment } from '../api'
+import getMetropolitanObjectsByPage, { getAllMetropolitanObjects, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
