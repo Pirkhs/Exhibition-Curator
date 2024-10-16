@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import '../styles/App.css'
 import '../styles/Exhibition.css'
+import '../styles/Collections.css'
 
 import ObjectCard from './ObjectCard'
 
@@ -19,7 +20,7 @@ export default function Exhibition () {
         <>
             <summary className="single-text-center"> <p> Warning! Exhibition is lost when your session has ended </p> </summary>
         <h2> My Exhibition </h2>
-        <div className="exhibition">
+        <div className="collection exhibition">
             { exhibition.map(object => {
                 return <ObjectCard key={object.objectId} objectId={object.objectId} objectData={object} collectionId={object.collectionId} inExhibition={true}/>
             }) }

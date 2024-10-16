@@ -1,18 +1,22 @@
 .object-card {
     margin: 0.314159rem;
-    border: 1px solid lightgrey;
     width: 20%;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
 }
 
-.object-card img {
-    width: 100%;
-    height: 100%;
-    align-self: flex-end;
+#object-card-title {
+    color: white;
+    font-weight: bolder;
+    font-style: italic;
 }
 
-.object-id {
+#object-card-id {
+    position: relative;
+}
+
+#id-no {
     color: darkgrey;
 }
+

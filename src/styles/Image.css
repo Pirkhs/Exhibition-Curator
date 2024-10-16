@@ -1,6 +1,8 @@
 .img-centered {
     display: block;
-    width: 75%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid black;
+    box-shadow: 7px 7px 5px black;
 }
