@@ -113,25 +113,29 @@ export default function CollectionHAM () {
                 })}
             </section>
             }
-            <aside className="filter">
-                <h3> Filter By Classification </h3>
-                { classificationFilter ? 
-                <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
-                : <></>} 
-                <div className="filter-buttons">
-                { classifications.map(classification => {
-                    return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
-                })}
+            <aside>
+                <div className="container-filter">
+                    <h3> Filter By Classification </h3>
+                    { classificationFilter ? 
+                    <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
+                    : <></>} 
+                    <div className="filter-buttons">
+                    { classifications.map(classification => {
+                        return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
+                    })}
+                    </div>
                 </div>
             </aside>
         </div>
         <br></br>
         <div className="container-page-nav">
+            <div className="page-nav">
             <button onClick={() => {handlePageNav(info.prev)}}> Prev </button>
             <p> Page {info.page} </p>
             <button onClick={() => handlePageNav(info.next)}> Next </button>
-        </div>
+            </div>
             { pageExists ? <></> : <p> Page does not exist </p> }
+        </div>
         </>
     )
 }

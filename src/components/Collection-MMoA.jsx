@@ -126,26 +126,30 @@ export default function CollectionMMoA () {
             }
             {
             departmentsLoaded ?
-            <aside className="filter">
-                <h3> Filter By Department</h3>
-                { departmentFilter ? 
-                <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> 
-                : <></>} 
-                <div className="filter-buttons">
-                    { departments.map(department => {
-                        return <button key = {department.departmentId} onClick={() => setDepartmentFilter(department)}>{department.displayName}</button>
-                    })}
+            <aside>
+                <div className="container-filter">
+                    <h3> Filter By Department</h3>
+                    { departmentFilter ? 
+                    <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> 
+                    : <></>} 
+                    <div className="filter-buttons">
+                        { departments.map(department => {
+                            return <button key = {department.departmentId} onClick={() => setDepartmentFilter(department)}>{department.displayName}</button>
+                        })}
+                    </div>
                 </div>
             </aside> : <Loading msg="Loading Departments"/>
             }
         </div>
         <br></br>
         <div className="container-page-nav">
+            <div className="page-nav"> 
             <button onClick={() => {handlePageNav(pageNo - 1)}}> Prev </button>
             <p> Page {pageNo} </p>
             <button onClick={() => handlePageNav(pageNo + 1)}> Next </button>
-        </div>
+            </div>
         { pageExists ? <></> : <p> Page does not exist </p> }
+        </div>
         </>
     )
 }

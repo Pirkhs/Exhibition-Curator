@@ -46,7 +46,7 @@ export function getHarvardObjectsByClassification (classification) {
 }
 
 export function getAllHarvardClassifications () {
-    return apiHarvard.get(`/classification?apikey=${apiKey}&&size=20`)
+    return apiHarvard.get(`/classification?apikey=${apiKey}&&size=100`)
 }
 
 export function getHarvardObjectsBySearchTerm (searchTerm) {
@@ -57,3 +57,6 @@ export function getHarvardObjectsByPage(url) {
     return apiHarvard.get(url)
 }
 
+export function getSortedHarvardObjects(sort, sortorder) {
+    return apiHarvard.get(`/objects?apiKey=${apiKey}&&size=20&&sort=${sort}&&sortorder=${sortorder}`)
+}
