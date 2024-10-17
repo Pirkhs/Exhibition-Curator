@@ -17,11 +17,26 @@ export default function CollectionHAM () {
     const [pageExists, setPageExists] = useState(true)
     const [sortQuery, setSortQuery] = useState("")
 
-    const handleSort = (sort, sortorder) => {
+    const sortQueries = [
+        "Accession Year | Ascending",
+        "Accession Year | Descending",
+        "Rank | Ascending",
+        "Rank | Descending",
+        "Total Page Views | Ascending",
+        "Total Page Views | Descending",
+        "Date of First Page View | Ascending",
+        "Date of First Page View | Descending",
+    ]
+
+    const handleSort = (e) => {
+        const sortQuery = e.target.innerHTML
+        const [sortStr, sortOrderStr] = sortQuery.split("|")
+        const sort = sortStr.toLowerCase().replace(/ /g, "")
+        const sortOrder = sortOrderStr.toLowerCase().replace(/ending/, "").trim()
         setClassificationFilter("")
-        setSortQuery(`${sort} | ${sortorder}`)
+        setSortQuery(sortQuery)
         setIsLoading("Sorting Collection...")
-        getSortedHarvardObjects(sort, sortorder)
+        getSortedHarvardObjects(sort, sortOrder)
         .then(response => {
             setObjects(response.data.records)
             setInfo(response.data.info)
@@ -138,23 +153,22 @@ export default function CollectionHAM () {
                     <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
                     : <></>} 
                     <div className="filter-buttons">
-                    { classifications.map(classification => {
-                        return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
-                    })}
+                        { 
+                            classifications.map(classification => {
+                                return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
+                            })
+                        }
                     </div>
                     <h3> Sort</h3>
                     { sortQuery ? 
-                    <p><span id="sort-text"> Current Filter: </span> <br/> {sortQuery} </p> 
+                    <p><span id="sort-text"> Current Sort: </span> <br/> {sortQuery} </p> 
                     : <></>} 
                     <div className="sort-buttons">
-                        <button onClick={() => handleSort("accessionyear", "asc")}> Accession Year | Ascending </button>
-                        <button onClick={() => handleSort("accessionyear", "desc")}> Accession Year | Descending </button>
-                        <button onClick={() => handleSort("rank", "asc")}> Rank | Ascending </button>
-                        <button onClick={() => handleSort("rank", "desc")}> Rank | Descending </button>
-                        <button onClick={() => handleSort("totalpageviews", "asc")}> Total Page Views | Ascending </button>
-                        <button onClick={() => handleSort("totalpageviews", "desc")}> Total Page Views | Descending </button>
-                        <button onClick={() => handleSort("dateoffirstpageview", "asc")}> Date of First Page View | Ascending </button>
-                        <button onClick={() => handleSort("dateoffirstpageview", "desc")}> Date of First Page View | Descending </button>
+                        {
+                            sortQueries.map(query => {
+                                return <button key={query} onClick={(e) => handleSort(e)}> {query} </button>
+                            })
+                        }
                     </div>
                 </div>
             </aside>

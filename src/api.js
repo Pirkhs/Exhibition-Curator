@@ -57,7 +57,7 @@ export function getHarvardObjectsByPage(url) {
     return apiHarvard.get(url)
 }
 
-export function getSortedHarvardObjects(sort, sortorder) {
-    return apiHarvard.get(`/object?apikey=${apiKey}&&size=20&&sort=${sort}&&sortorder=${sortorder}`)
+export function getSortedHarvardObjects(sort, sortOrder) {
+    return apiHarvard.get(`/object?apikey=${apiKey}&&size=20&&sort=${sort}&&sortorder=${sortOrder}`)
 }
 
