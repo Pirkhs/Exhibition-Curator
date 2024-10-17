@@ -36,7 +36,7 @@ You will need to request an api key to be able to fetch data from the HAM collec
 - Fill out the survey 
 - You should receive your api key via the email you submitted <br>
 
-Create a new file called **'apiKey.js'** inside the *src* folder and contains the following: ```export const apiKey = "[your_api_key]"``` <br>
+Create a new file called **.env'** inside the root folder and contains the following: ```VITE_API_KEY=[your_api_key]``` <br>
 The command ```npm run dev``` will then host the server locally on port number 5173 <br> 
 
 ## View Live Version

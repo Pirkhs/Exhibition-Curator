@@ -1,5 +1,6 @@
 import axios from 'axios'
-// import { apiKey } from './apiKey'
+
+const apiKey = import.meta.env.VITE_API_KEY
 
 const apiMetropolitan = axios.create({
     baseURL: 'https://collectionapi.metmuseum.org/public/collection/v1'
