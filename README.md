@@ -50,3 +50,4 @@ React v18.3.1+
 
 ## Additional Information
 Further improvements and restyling to come
+Not currently intended for mobile device viewing
