@@ -35,11 +35,11 @@ aside {
     width: 20%;
 }
 
-#filter-text {
+#filter-text, #sort-text {
     color: darkgrey;
 }
 
-.filter-buttons {
+.filter-buttons, .sort-buttons {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

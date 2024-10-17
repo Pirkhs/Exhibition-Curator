@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsByPage, getHarvardObjectsBySearchTerm } from '../api'
+import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsByPage, getHarvardObjectsBySearchTerm, getSortedHarvardObjects } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -15,6 +15,23 @@ export default function CollectionHAM () {
     const [info, setInfo] = useState([])
     const [searchTerm, setSearchTerm] = useState(null)
     const [pageExists, setPageExists] = useState(true)
+    const [sortQuery, setSortQuery] = useState("")
+
+    const handleSort = (sort, sortorder) => {
+        setClassificationFilter("")
+        setSortQuery(`${sort} | ${sortorder}`)
+        setIsLoading("Sorting Collection...")
+        getSortedHarvardObjects(sort, sortorder)
+        .then(response => {
+            setObjects(response.data.records)
+            setInfo(response.data.info)
+            setIsLoading("")
+        })
+        .catch(err => {
+            setIsError(`${err}`)
+            setIsLoading("")
+        })
+    }
 
     const handlePageNav = (url) => {
         if (!url) {
@@ -51,6 +68,7 @@ export default function CollectionHAM () {
 
     useEffect(() => {
         if (!classificationFilter) return
+        setSortQuery("")
         setIsLoading("Filtering Collection...")
         setPageExists(true)
         getHarvardObjectsByClassification(classificationFilter)
@@ -114,7 +132,7 @@ export default function CollectionHAM () {
             </section>
             }
             <aside>
-                <div className="container-filter">
+                <div className="container-filter container-sort">
                     <h3> Filter By Classification </h3>
                     { classificationFilter ? 
                     <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
@@ -123,6 +141,20 @@ export default function CollectionHAM () {
                     { classifications.map(classification => {
                         return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
                     })}
+                    </div>
+                    <h3> Sort</h3>
+                    { sortQuery ? 
+                    <p><span id="sort-text"> Current Filter: </span> <br/> {sortQuery} </p> 
+                    : <></>} 
+                    <div className="sort-buttons">
+                        <button onClick={() => handleSort("accessionyear", "asc")}> Accession Year | Ascending </button>
+                        <button onClick={() => handleSort("accessionyear", "desc")}> Accession Year | Descending </button>
+                        <button onClick={() => handleSort("rank", "asc")}> Rank | Ascending </button>
+                        <button onClick={() => handleSort("rank", "desc")}> Rank | Descending </button>
+                        <button onClick={() => handleSort("totalpageviews", "asc")}> Total Page Views | Ascending </button>
+                        <button onClick={() => handleSort("totalpageviews", "desc")}> Total Page Views | Descending </button>
+                        <button onClick={() => handleSort("dateoffirstpageview", "asc")}> Date of First Page View | Ascending </button>
+                        <button onClick={() => handleSort("dateoffirstpageview", "desc")}> Date of First Page View | Descending </button>
                     </div>
                 </div>
             </aside>
