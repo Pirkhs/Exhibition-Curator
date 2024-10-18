@@ -115,7 +115,7 @@ export default function CollectionMMoA () {
             Search for: <input placeholder=" e.g. sunflowers" type="search" name="query"/>
             <button type="submit">Search</button>
         </form>
-        <br></br>
+        <br/>
         <div className="container-collection">
             { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No objects to show </p> :
             <section className="collection">
@@ -128,7 +128,7 @@ export default function CollectionMMoA () {
             departmentsLoaded ?
             <aside>
                 <div className="container-filter">
-                    <h3> Filter By Department</h3>
+                    <h3> Filter </h3>
                     { departmentFilter ? 
                     <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> 
                     : <></>} 
@@ -148,8 +148,8 @@ export default function CollectionMMoA () {
             <p> Page {pageNo} </p>
             <button onClick={() => handlePageNav(pageNo + 1)}> Next </button>
             </div>
-        { pageExists ? <></> : <p> Page does not exist </p> }
         </div>
+        { pageExists ? <></> : <p id="page-nav-error"> ⚠️ Page does not exist </p> }
         </>
     )
 }

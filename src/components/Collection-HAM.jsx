@@ -137,6 +137,7 @@ export default function CollectionHAM () {
             Search for: <input placeholder=" e.g. sunflowers" type="search" name="query" /> 
             <button type="submit">Search</button>
         </form>
+        <br/>
         <div className="container-collection">
             <br></br>
             { objects.length === 0 || objects === null ? <p className="collection"> No objects to show </p> :
@@ -148,7 +149,7 @@ export default function CollectionHAM () {
             }
             <aside>
                 <div className="container-filter container-sort">
-                    <h3> Filter By Classification </h3>
+                    <h3> Filter </h3>
                     { classificationFilter ? 
                     <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
                     : <></>} 
@@ -180,8 +181,8 @@ export default function CollectionHAM () {
             <p> Page {info.page} </p>
             <button onClick={() => handlePageNav(info.next)}> Next </button>
             </div>
-            { pageExists ? <></> : <p> Page does not exist </p> }
         </div>
+            { pageExists ? <></> : <p id="page-nav-error"> ⚠️ Page does not exist </p> }
         </>
     )
 }
