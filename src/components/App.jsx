@@ -11,7 +11,7 @@ import SingleObject from './SingleObject'
 function App() {
 
   return (
-    <>
+    <div className="App">
       <div className="sticky-nav">
         <Header/>
         <Nav/>
@@ -25,7 +25,7 @@ function App() {
         <Route path="*" element={<Error msg={'404: Page not found'}/>} />
       </Routes>
       </main>
-    </>
+    </div>
   )
 }
 
