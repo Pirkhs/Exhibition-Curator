@@ -56,6 +56,7 @@ export default function CollectionMMoA () {
         if (!searchTerm) return
         setIsLoading("Searching Collection...")
         setPageNo(1)
+        setDepartmentFilter("")
         getMetropolitanObjectBySearchTerm(searchTerm)
         .then(response => {
             if (response.data.objectIDs === null) { 

@@ -118,6 +118,8 @@ export default function CollectionHAM () {
         if (!searchTerm) return
         setIsLoading("Searching Collection...")
         setPageExists(true)
+        setClassificationFilter("")
+        setSortQuery("")
         getHarvardObjectsBySearchTerm(searchTerm)
         .then(response => {
             setObjects(response.data.records)

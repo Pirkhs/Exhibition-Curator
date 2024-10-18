@@ -72,7 +72,7 @@ export default function SingleObject () {
         <section className="single-object">
             { JSON.stringify(object) === "{}" || object === undefined ? <p> Object could not be found </p> : 
             <ul>
-                <h2> {object.title || <Error msg="No title data"/>} </h2>
+                <h2 id="single-object-title"> {object.title || <Error msg="No title data"/>} </h2>
                 <li id="object-id"> Id: {objectId} </li>
 
                 <table className="object-data">
