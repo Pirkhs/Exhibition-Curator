@@ -29,7 +29,7 @@ export default function CollectionHAM () {
     ]
 
     const handleSort = (e) => {
-        const sortQuery = e.target.innerHTML
+        const sortQuery = e.target.value
         const [sortStr, sortOrderStr] = sortQuery.split("|")
         const sort = sortStr.toLowerCase().replace(/ /g, "")
         const sortOrder = sortOrderStr.toLowerCase().replace(/ending/, "").trim()
@@ -135,10 +135,37 @@ export default function CollectionHAM () {
     if (isError) return <Error msg={isError}/>
     return ( isLoading ? <div className='container-loading'><Loading msg={isLoading}/> </div> : 
         <>
-        <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }} className="searchbar"> 
+        <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }} className="container-searchbar"> 
             Search for: <input placeholder=" e.g. sunflowers" type="search" name="query" /> 
             <button type="submit">Search</button>
         </form>
+        <br/>
+        <div className="container-queries">
+            <select name="filters" id="filters" onChange={(e) => setClassificationFilter(e.target.value)}>  
+                    <option hidden> Filter </option>
+                { 
+                    classifications.map(classification => {
+                        return <option key={classification}>{classification}</option>
+                    })
+                }
+            </select>
+            <br/>
+            <select name="sort" id="sort" onChange={(e) => handleSort(e)}>  
+                    <option hidden> Sort </option>
+                { 
+                    sortQueries.map(query => {
+                        return <option key={query}>{query}</option>
+                    })
+                }
+            </select>
+
+        </div>
+            { 
+                classificationFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> : <></>
+            } 
+            { 
+                sortQuery ? <p><span id="sort-text"> Current Sort: </span> <br/> {sortQuery} </p> : <></>
+            }  
         <br/>
         <div className="container-collection">
             <br></br>
@@ -149,32 +176,6 @@ export default function CollectionHAM () {
                 })}
             </section>
             }
-            <aside>
-                <div className="container-filter container-sort">
-                    <h3> Filter </h3>
-                    { classificationFilter ? 
-                    <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> 
-                    : <></>} 
-                    <div className="filter-buttons">
-                        { 
-                            classifications.map(classification => {
-                                return <button key = {classification} onClick={() => setClassificationFilter(`${classification}`)}>{classification}</button>
-                            })
-                        }
-                    </div>
-                    <h3> Sort</h3>
-                    { sortQuery ? 
-                    <p><span id="sort-text"> Current Sort: </span> <br/> {sortQuery} </p> 
-                    : <></>} 
-                    <div className="sort-buttons">
-                        {
-                            sortQueries.map(query => {
-                                return <button key={query} onClick={(e) => handleSort(e)}> {query} </button>
-                            })
-                        }
-                    </div>
-                </div>
-            </aside>
         </div>
         <br></br>
         <div className="container-page-nav">

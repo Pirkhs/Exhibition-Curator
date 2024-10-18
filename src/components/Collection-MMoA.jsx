@@ -112,10 +112,24 @@ export default function CollectionMMoA () {
 
     return isLoading ? <div className="container-loading"><Loading msg={isLoading}/></div> :(
         <>
-        <form className="searchbar" onSubmit={(e) => { e.preventDefault(); setSearchTerm(e.target["query"].value)}}> 
+        <form className="container-searchbar" onSubmit={(e) => { e.preventDefault(); setSearchTerm(e.target["query"].value)}}> 
             Search for: <input placeholder=" e.g. sunflowers" type="search" name="query"/>
             <button type="submit">Search</button>
         </form>
+        <br/>
+        <div className="container-queries">
+            <select name="filters" id="filters" onChange={(e) => setDepartmentFilter({departmentId: e.target.options[e.target.selectedIndex].getAttribute("id"), displayName: e.target.value})}>  
+                    <option hidden> Filter </option>
+                { 
+                    departments.map(department => {
+                        return <option id={department.departmentId} key={department.departmentId}>{department.displayName}</option>
+                    })
+                }
+            </select>
+        </div>
+                { 
+                    departmentFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> : <></>
+                } 
         <br/>
         <div className="container-collection">
             { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No objects to show </p> :
@@ -124,22 +138,6 @@ export default function CollectionMMoA () {
                     return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>
                 })}
             </section>
-            }
-            {
-            departmentsLoaded ?
-            <aside>
-                <div className="container-filter">
-                    <h3> Filter </h3>
-                    { departmentFilter ? 
-                    <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> 
-                    : <></>} 
-                    <div className="filter-buttons">
-                        { departments.map(department => {
-                            return <button key = {department.departmentId} onClick={() => setDepartmentFilter(department)}>{department.displayName}</button>
-                        })}
-                    </div>
-                </div>
-            </aside> : <Loading msg="Loading Departments"/>
             }
         </div>
         <br></br>
