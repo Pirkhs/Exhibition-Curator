@@ -30,6 +30,7 @@ h3 {
     flex-wrap: wrap;
     flex-basis: 75%;
     gap: 1rem;
+    row-gap: 5rem;
 }
 
 aside {
