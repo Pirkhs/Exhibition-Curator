@@ -54,6 +54,7 @@ export default function CollectionHAM () {
         const sortOrder = sortOrderStr.toLowerCase().replace(/ending/, "").trim()
         setClassificationFilter("")
         setSortQuery(sortQuery)
+        setSearchTerm("")
         setIsLoading("Sorting Collection...")
         getSortedHarvardObjects(sort, sortOrder, quantity)
         .then(response => {
@@ -105,6 +106,7 @@ export default function CollectionHAM () {
         setSortQuery("")
         setIsLoading("Filtering Collection...")
         setPageExists(true)
+        setSearchTerm("")
         getHarvardObjectsByClassification(classificationFilter, quantity)
         .then(response => {
             setObjects(response.data.records)

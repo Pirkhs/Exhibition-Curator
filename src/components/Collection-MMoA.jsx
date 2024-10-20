@@ -92,6 +92,7 @@ export default function CollectionMMoA () {
         if (!departmentFilter) return
         const {departmentId} = departmentFilter
         setIsLoading("Filtering Collection...")
+        setSearchTerm("")
         setPageNo(1)
         getMetropolitanObjectsByDepartment(departmentId)
         .then(response => {
