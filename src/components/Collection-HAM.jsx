@@ -17,6 +17,7 @@ export default function CollectionHAM () {
     const [pageExists, setPageExists] = useState(true)
     const [sortQuery, setSortQuery] = useState("")
     const [quantity, setQuantity] = useState(20)
+    const [isMoreResults, setIsMoreResults] = useState(true)
 
     const sortQueries = [
         "Accession Year | Ascending",
@@ -31,6 +32,10 @@ export default function CollectionHAM () {
 
     const handleQuantity = (e) => {
         setQuantity(e.target.value)    
+        if (!info.next) {
+            setIsMoreResults(false)
+            return
+        }
         const currUrl = info.next.slice(0,-1) + `1`
         const newUrl = currUrl.replace(/(size=[1-9])\w+/, `size=${e.target.value}`)
         setIsLoading("Updating Quantity...")
@@ -191,9 +196,10 @@ export default function CollectionHAM () {
                 quantity ? <p><span id="quantity-text"> Quantity: </span> <br/> {quantity} </p> : <></>
             }  
         <br/>
+            { !isMoreResults ? <p className="single-text-center"> Reached the end of the results </p> : <></>}
         <div className="container-collection">
             <br></br>
-            { objects.length === 0 || objects === null ? <p className="collection single-text-center"> No results found. Try changing filters or searching for key words </p> :
+            { objects.length === 0 || objects === null ? <p className="collection single-text-center"> No results found. Try changing filters or searching for key words </p> :    
             <section className="collection" id="collection">
                 { objects.map(object => {
                     return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
