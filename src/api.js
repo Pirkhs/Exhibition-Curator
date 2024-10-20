@@ -30,7 +30,7 @@ export function getMetropolitanObjectBySearchTerm (searchTerm) {
     return apiMetropolitan.get(`/search?q=${searchTerm}`)
 }
 
-export function getMetropolitanObjectsByPage (endpoint) {
+export function getMetropolitanObjectsByUrl (endpoint) {
     return apiMetropolitan.get(endpoint)
 }
 

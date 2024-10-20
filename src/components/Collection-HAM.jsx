@@ -16,7 +16,7 @@ export default function CollectionHAM () {
     const [searchTerm, setSearchTerm] = useState(null)
     const [pageExists, setPageExists] = useState(true)
     const [sortQuery, setSortQuery] = useState("")
-    const [quantity, setQuantity] = useState("")
+    const [quantity, setQuantity] = useState(20)
 
     const sortQueries = [
         "Accession Year | Ascending",

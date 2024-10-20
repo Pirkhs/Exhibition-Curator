@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getMetropolitanObjectsByPage, getAllMetropolitanObjects, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment, getMetropolitanDepartments } from '../api'
+import { getMetropolitanObjectsByUrl, getAllMetropolitanObjects, getMetropolitanObjectBySearchTerm, getMetropolitanObjectsByDepartment, getMetropolitanDepartments } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -17,6 +17,18 @@ export default function CollectionMMoA () {
     const [responseURL, setReponseURL] = useState("")
     const [departments, setDepartments] = useState([])
     const [departmentsLoaded, setDepartmentsLoaded] = useState(false)
+    const [quantity, setQuantity] = useState(20)
+
+    const handleQuantity = (e) => {
+        setQuantity(e.target.value)
+        setIsLoading("Updating Quantity...")
+        getMetropolitanObjectsByUrl(responseURL)
+        .then(response => {
+            setReponseURL(response.request.responseURL)
+            setObjectIDs(response.data.objectIDs.slice(0, e.target.value))
+            setIsLoading("")
+        })
+    }
 
     const handlePageNav = (newPageNumber) => {
         if (newPageNumber === 0) {
@@ -27,10 +39,10 @@ export default function CollectionMMoA () {
         setPageNo(newPageNumber)
         setIsLoading("Loading New Page...")
         const endpoint = responseURL.split("/").splice(6).join("/")
-        getMetropolitanObjectsByPage(endpoint)
+        getMetropolitanObjectsByUrl(endpoint)
         .then(response => {
             setReponseURL(response.request.responseURL)
-            setObjectIDs(response.data.objectIDs.slice((newPageNumber - 1) * 20, newPageNumber * 20))
+            setObjectIDs(response.data.objectIDs.slice((newPageNumber - 1) * quantity, newPageNumber * quantity))
             setIsLoading("")
         })
         .catch(err => {
@@ -64,7 +76,7 @@ export default function CollectionMMoA () {
                 setObjectIDs([])
                 return
             }
-            const searchedObjectIDs = response.data.objectIDs.slice(0, 20)
+            const searchedObjectIDs = response.data.objectIDs.slice(0, quantity)
             setReponseURL(response.request.responseURL)
             setObjectIDs(searchedObjectIDs)
             setIsLoading("")
@@ -83,7 +95,7 @@ export default function CollectionMMoA () {
         getMetropolitanObjectsByDepartment(departmentId)
         .then(response => {
             setReponseURL(response.request.responseURL)
-            const filteredObjectIDs = response.data.objectIDs.slice(0, 20)
+            const filteredObjectIDs = response.data.objectIDs.slice(0, quantity)
             setObjectIDs(filteredObjectIDs  )
             setIsLoading("")
         })
@@ -98,7 +110,7 @@ export default function CollectionMMoA () {
         getAllMetropolitanObjects()
         .then(response => {
             setReponseURL(response.request.responseURL)
-            const objectIDs = response.data.objectIDs.slice(0, 20)
+            const objectIDs = response.data.objectIDs.slice(0, quantity)
             setObjectIDs(objectIDs)
             setIsLoading("")
         })
@@ -126,10 +138,20 @@ export default function CollectionMMoA () {
                     })
                 }
             </select>
+            <select onChange={(e) => handleQuantity(e)}>
+                <option hidden> Quantity </option>
+                <option value="20"> 20 </option>
+                <option value="30"> 30 </option>
+                <option value="40"> 40 </option>
+                <option value="50"> 50 </option>
+            </select>
         </div>
                 { 
                     departmentFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> : <></>
                 } 
+                { 
+                    quantity ? <p><span id="quantity-text"> Quantity: </span> <br/> {quantity} </p> : <></>
+                }  
         <br/>
         <div className="container-collection">
             { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No objects to show </p> :
