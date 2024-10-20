@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsByPage, getHarvardObjectsBySearchTerm, getSortedHarvardObjects } from '../api'
+import { getAllHarvardClassifications, getAllHarvardObjects, getHarvardObjectsByClassification, getHarvardObjectsByUrl, getHarvardObjectsBySearchTerm, getSortedHarvardObjects } from '../api'
 
 import '../styles/Collections.css'
 import Loading from './Loading'
@@ -16,6 +16,7 @@ export default function CollectionHAM () {
     const [searchTerm, setSearchTerm] = useState(null)
     const [pageExists, setPageExists] = useState(true)
     const [sortQuery, setSortQuery] = useState("")
+    const [quantity, setQuantity] = useState("")
 
     const sortQueries = [
         "Accession Year | Ascending",
@@ -28,6 +29,20 @@ export default function CollectionHAM () {
         "Date of First Page View | Descending",
     ]
 
+    const handleQuantity = (e) => {
+        setQuantity(e.target.value)    
+        const nextPage = +(info.next.slice(-1))
+        const currUrl = info.next.slice(0,-1) + `${nextPage - 1}`
+        const newUrl = currUrl.replace(/(size=[1-9])\w+/, `size=${e.target.value}`)
+        setIsLoading("Updating Quantity...")
+        getHarvardObjectsByUrl(newUrl)
+        .then(response => {
+            setObjects(response.data.records)
+            setInfo(response.data.info)
+            setIsLoading("")
+        })
+    }
+
     const handleSort = (e) => {
         const sortQuery = e.target.value
         const [sortStr, sortOrderStr] = sortQuery.split("|")
@@ -36,7 +51,7 @@ export default function CollectionHAM () {
         setClassificationFilter("")
         setSortQuery(sortQuery)
         setIsLoading("Sorting Collection...")
-        getSortedHarvardObjects(sort, sortOrder)
+        getSortedHarvardObjects(sort, sortOrder, quantity)
         .then(response => {
             setObjects(response.data.records)
             setInfo(response.data.info)
@@ -55,7 +70,7 @@ export default function CollectionHAM () {
         }
         setPageExists(true)
         setIsLoading("Loading Page...")
-        getHarvardObjectsByPage(url.slice(33))
+        getHarvardObjectsByUrl(url.slice(33))
         .then(response => {
             setObjects(response.data.records)
             setInfo(response.data.info)
@@ -86,7 +101,7 @@ export default function CollectionHAM () {
         setSortQuery("")
         setIsLoading("Filtering Collection...")
         setPageExists(true)
-        getHarvardObjectsByClassification(classificationFilter)
+        getHarvardObjectsByClassification(classificationFilter, quantity)
         .then(response => {
             setObjects(response.data.records)
             setInfo(response.data.info)
@@ -120,7 +135,7 @@ export default function CollectionHAM () {
         setPageExists(true)
         setClassificationFilter("")
         setSortQuery("")
-        getHarvardObjectsBySearchTerm(searchTerm)
+        getHarvardObjectsBySearchTerm(searchTerm, quantity)
         .then(response => {
             setObjects(response.data.records)
             setInfo(response.data.info)
@@ -158,13 +173,22 @@ export default function CollectionHAM () {
                     })
                 }
             </select>
-
+            <select onChange={(e) => handleQuantity(e)}>
+                <option hidden> Quantity </option>
+                <option value="20"> 20 </option>
+                <option value="30"> 30 </option>
+                <option value="40"> 40 </option>
+                <option value="50"> 50 </option>
+            </select>
         </div>
             { 
                 classificationFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> : <></>
             } 
             { 
                 sortQuery ? <p><span id="sort-text"> Current Sort: </span> <br/> {sortQuery} </p> : <></>
+            }  
+            { 
+                quantity ? <p><span id="quantity-text"> Quantity: </span> <br/> {quantity} </p> : <></>
             }  
         <br/>
         <div className="container-collection">

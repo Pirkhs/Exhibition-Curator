@@ -42,23 +42,23 @@ export function getHarvardObjectById (id) {
     return apiHarvard.get(`/object?apikey=${apiKey}&&id=${id}`)
 }
 
-export function getHarvardObjectsByClassification (classification) {
-    return apiHarvard.get(`/object?apikey=${apiKey}&&classification=${classification}&&size=20`)
+export function getHarvardObjectsByClassification (classification, size=20) {
+    return apiHarvard.get(`/object?apikey=${apiKey}&&classification=${classification}&&size=${size}`)
 }
 
 export function getAllHarvardClassifications () {
     return apiHarvard.get(`/classification?apikey=${apiKey}&&size=100`)
 }
 
-export function getHarvardObjectsBySearchTerm (searchTerm) {
-    return apiHarvard.get(`/object?apikey=${apiKey}&&q=title:${searchTerm}&&size=20`)
+export function getHarvardObjectsBySearchTerm (searchTerm, size=20) {
+    return apiHarvard.get(`/object?apikey=${apiKey}&&q=title:${searchTerm}&&size=${size}`)
 }
 
-export function getHarvardObjectsByPage(url) {
+export function getHarvardObjectsByUrl(url) {
     return apiHarvard.get(url)
 }
 
-export function getSortedHarvardObjects(sort, sortOrder) {
-    return apiHarvard.get(`/object?apikey=${apiKey}&&size=20&&sort=${sort}&&sortorder=${sortOrder}`)
+export function getSortedHarvardObjects(sort, sortOrder, size=20) {
+    return apiHarvard.get(`/object?apikey=${apiKey}&&sort=${sort}&&sortorder=${sortOrder}&&size=${size}`)
 }
 

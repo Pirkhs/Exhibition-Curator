@@ -43,7 +43,7 @@ h3 {
     row-gap: 5rem;
 }
 
-#filter-text, #sort-text {
+#filter-text, #sort-text, #quantity-text {
     color: darkgrey;
 }
 
