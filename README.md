@@ -50,5 +50,5 @@ Git v2.45.2+ <br>
 React v18.3.1+
 
 ## Additional Information
-Further improvements and restyling to come
-Mobile viewing now supported
+- Further improvements and restyling to come 
+- Mobile viewing now supported
