@@ -156,7 +156,7 @@ export default function CollectionMMoA () {
                 }  
         <br/>
         <div className="container-collection">
-            { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No results found. Try changing filters or searching for key words </p> :
+            { objectIDs.length === 0 || objectIDs === null ? <p className="collection single-text-center"> No results found. Try changing filters or searching for key words </p> :
             <section className="collection">
                 {objectIDs.map(objectID => {
                     return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>
