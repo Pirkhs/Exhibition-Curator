@@ -15,6 +15,7 @@ This project enables users to become their very own curator of various antiques 
     - Total Page Views
     - Date of First Page View
 - Collections can also be paged through at the bottom of that respective collection's section.
+- Choose how many results to show for each collection per page
 - Click on the **'View More'** button under each image to see more info about that objects' :
     - Title
     - Collection Id
@@ -50,4 +51,4 @@ React v18.3.1+
 
 ## Additional Information
 Further improvements and restyling to come
-Not currently intended for mobile device viewing
+Mobile viewing now supported

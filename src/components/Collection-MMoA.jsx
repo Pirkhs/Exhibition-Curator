@@ -24,6 +24,7 @@ export default function CollectionMMoA () {
         setIsLoading("Updating Quantity...")
         getMetropolitanObjectsByUrl(responseURL)
         .then(response => {
+            setPageNo(1)
             setReponseURL(response.request.responseURL)
             setObjectIDs(response.data.objectIDs.slice(0, e.target.value))
             setIsLoading("")
@@ -146,6 +147,7 @@ export default function CollectionMMoA () {
                 <option value="50"> 50 </option>
             </select>
         </div>
+            <p> * Updating quantity will reset results back to the first page * </p>
                 { 
                     departmentFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> : <></>
                 } 
@@ -154,7 +156,7 @@ export default function CollectionMMoA () {
                 }  
         <br/>
         <div className="container-collection">
-            { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No objects to show </p> :
+            { objectIDs.length === 0 || objectIDs === null ? <p className="collection"> No results found. Try changing filters or searching for key words </p> :
             <section className="collection">
                 {objectIDs.map(objectID => {
                     return <ObjectCard key={objectID} objectId={objectID} collectionId={1}/>

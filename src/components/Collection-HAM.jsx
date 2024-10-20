@@ -31,8 +31,7 @@ export default function CollectionHAM () {
 
     const handleQuantity = (e) => {
         setQuantity(e.target.value)    
-        const nextPage = +(info.next.slice(-1))
-        const currUrl = info.next.slice(0,-1) + `${nextPage - 1}`
+        const currUrl = info.next.slice(0,-1) + `1`
         const newUrl = currUrl.replace(/(size=[1-9])\w+/, `size=${e.target.value}`)
         setIsLoading("Updating Quantity...")
         getHarvardObjectsByUrl(newUrl)
@@ -181,6 +180,7 @@ export default function CollectionHAM () {
                 <option value="50"> 50 </option>
             </select>
         </div>
+        <p> * Updating quantity will reset results back to the first page * </p>
             { 
                 classificationFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> : <></>
             } 
@@ -193,7 +193,7 @@ export default function CollectionHAM () {
         <br/>
         <div className="container-collection">
             <br></br>
-            { objects.length === 0 || objects === null ? <p className="collection"> No objects to show </p> :
+            { objects.length === 0 || objects === null ? <p className="collection single-text-center"> No results found. Try changing filters or searching for key words </p> :
             <section className="collection" id="collection">
                 { objects.map(object => {
                     return <ObjectCard key = {object.objectid} objectData={object} collectionId={2}/>
