@@ -2,7 +2,7 @@
 # Exhibition Curator
 
 ## Project Summary
-This project enables users to become their very own curator of various antiques and fine artworks by browsing through collections of pieces and choosing to add specific ones to their very own exhbition to show others.
+This project enables users to become their very own curator of various antiques and fine artworks by browsing through collections and choosing to add specific pieces to their very own exhbition.
 
 ## User Stories
 - Be welcomed on the web appplication's **"Home"** page
@@ -15,8 +15,8 @@ This project enables users to become their very own curator of various antiques 
     - Total Page Views
     - Date of First Page View
 - Collections can also be paged through at the bottom of that respective collection's section.
-- Choose how many results to show for each collection per page
-- Click on the **'View More'** button under each image to see more info about that objects' :
+- Choose the quantity of results to show for each collection per page
+- Click on the **'View More'** button under each image to see more info about that object's :
     - Title
     - Collection Id
     - Accession Year
@@ -37,7 +37,7 @@ You will need to request an api key to be able to fetch data from the HAM collec
 - Fill out the survey 
 - You should receive your api key via the email you submitted <br>
 
-Create a new file called **.env'** inside the root folder and contains the following: ```VITE_API_KEY=[your_api_key]``` <br>
+Create a new file called **.env** inside the root folder and contains the following: ```VITE_API_KEY=[your_api_key]``` <br>
 The command ```npm run dev``` will then host the server locally on port number 5173 <br> 
 
 ## View Live Version
@@ -50,5 +50,5 @@ Git v2.45.2+ <br>
 React v18.3.1+
 
 ## Additional Information
-- Further improvements and restyling to come 
 - Mobile viewing now supported
+- Have Fun !
