@@ -157,46 +157,48 @@ export default function CollectionHAM () {
     return ( isLoading ? <div className='container-loading'><Loading msg={isLoading}/> </div> : 
         <>
         <form onSubmit={(e) => {e.preventDefault(); setSearchTerm(e.target["query"].value) }} className="container-searchbar"> 
-            Search for: <input placeholder=" e.g. sunflowers" type="search" name="query" /> 
+            <label htmlFor="search"> Search for:  </label>
+            <input id="search" placeholder=" e.g. sunflowers" type="search" name="query" /> 
             <button type="submit">Search</button>
         </form>
         <br/>
         <div className="container-queries">
-            <select name="filters" id="filters" onChange={(e) => setClassificationFilter(e.target.value)}>  
-                    <option hidden> Filter </option>
-                { 
-                    classifications.map(classification => {
-                        return <option key={classification}>{classification}</option>
-                    })
-                }
-            </select>
+            <label> Filter: 
+                <select name="filters" id="filters" onChange={(e) => setClassificationFilter(e.target.value)}>  
+                        <option hidden> {classificationFilter || "Classification"} </option>
+                    { 
+                        classifications.map(classification => {
+                            return <option key={classification}>{classification}</option>
+                        })
+                    }
+                </select>
+            </label>
             <br/>
-            <select name="sort" id="sort" onChange={(e) => handleSort(e)}>  
-                    <option hidden> Sort </option>
-                { 
-                    sortQueries.map(query => {
-                        return <option key={query}>{query}</option>
-                    })
-                }
-            </select>
-            <select onChange={(e) => handleQuantity(e)}>
-                <option hidden> Quantity </option>
-                <option value="20"> 20 </option>
-                <option value="30"> 30 </option>
-                <option value="40"> 40 </option>
-                <option value="50"> 50 </option>
-            </select>
+            <label> Sort: 
+                <select name="sort" id="sort" onChange={(e) => handleSort(e)}>  
+                        <option hidden> { sortQuery || "By:"} </option>
+                    { 
+                        sortQueries.map(query => {
+                            return <option key={query}>{query}</option>
+                        })
+                    }
+                </select>
+            </label>
+            <label> Quantity: 
+                <select onChange={(e) => handleQuantity(e)}>
+                    <option hidden> {quantity} </option>
+                    <option value="20"> 20 </option>
+                    <option value="30"> 30 </option>
+                    <option value="40"> 40 </option>
+                    <option value="50"> 50 </option>
+                </select>
+            </label>
         </div>
-        <p> * Updating quantity will reset results back to the first page * </p>
-            { 
-                classificationFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {classificationFilter} </p> : <></>
-            } 
-            { 
-                sortQuery ? <p><span id="sort-text"> Current Sort: </span> <br/> {sortQuery} </p> : <></>
-            }  
-            { 
-                quantity ? <p><span id="quantity-text"> Quantity: </span> <br/> {quantity} </p> : <></>
-            }  
+        <br/>
+        <ul className="no-bullets">
+            <li> * Results may only be either filtered or sorted * </li>
+            <li> * Updating quantity will reset results back to the first page * </li>
+        </ul>
         <br/>
             { !isMoreResults ? <p className="single-text-center"> Reached the end of the results </p> : <></>}
         <div className="container-collection">

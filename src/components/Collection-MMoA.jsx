@@ -127,34 +127,34 @@ export default function CollectionMMoA () {
     return isLoading ? <div className="container-loading"><Loading msg={isLoading}/></div> :(
         <>
         <form className="container-searchbar" onSubmit={(e) => { e.preventDefault(); setSearchTerm(e.target["query"].value)}}> 
-            Search for: <input placeholder=" e.g. sunflowers" type="search" name="query"/>
+            <label> Search for:  
+                <input id="search" placeholder=" e.g. sunflowers" type="search" name="query"/>
+            </label>
             <button type="submit">Search</button>
         </form>
         <br/>
         <div className="container-queries">
-            <select name="filters" id="filters" onChange={(e) => setDepartmentFilter({departmentId: e.target.options[e.target.selectedIndex].getAttribute("id"), displayName: e.target.value})}>  
-                    <option hidden> Filter </option>
-                { 
-                    departments.map(department => {
-                        return <option id={department.departmentId} key={department.departmentId}>{department.displayName}</option>
-                    })
-                }
-            </select>
-            <select onChange={(e) => handleQuantity(e)}>
-                <option hidden> Quantity </option>
-                <option value="20"> 20 </option>
-                <option value="30"> 30 </option>
-                <option value="40"> 40 </option>
-                <option value="50"> 50 </option>
-            </select>
+            <label> Filter:
+                <select name="filters" id="filters" onChange={(e) => setDepartmentFilter({departmentId: e.target.options[e.target.selectedIndex].getAttribute("id"), displayName: e.target.value})}>  
+                        <option hidden> {departmentFilter ? `${departmentFilter.displayName}` : `Department`} </option>
+                    { 
+                        departments.map(department => {
+                            return <option id={department.departmentId} key={department.departmentId}>{department.displayName}</option>
+                        })
+                    }
+                </select>
+            </label>
+            <label> Quantity:
+                <select onChange={(e) => handleQuantity(e)}>
+                    <option hidden> {quantity} </option>
+                    <option value="20"> 20 </option>
+                    <option value="30"> 30 </option>
+                    <option value="40"> 40 </option>
+                    <option value="50"> 50 </option>
+                </select>
+            </label>
         </div>
-            <p> * Updating quantity will reset results back to the first page * </p>
-                { 
-                    departmentFilter ? <p><span id="filter-text"> Current Filter: </span> <br/> {departmentFilter.displayName} </p> : <></>
-                } 
-                { 
-                    quantity ? <p><span id="quantity-text"> Quantity: </span> <br/> {quantity} </p> : <></>
-                }  
+            <p> * Updating quantity will reset results back to the first page * </p> 
         <br/>
         <div className="container-collection">
             { objectIDs.length === 0 || objectIDs === null ? <p className="collection single-text-center"> No results found. Try changing filters or searching for key words </p> :
