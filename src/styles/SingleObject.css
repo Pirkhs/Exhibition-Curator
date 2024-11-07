@@ -12,8 +12,8 @@ li {
 }
 
 table.object-data {
+    margin: auto;
     color: grey;
-    width: 100%;
     background-color: white;
     border: 1px solid black;
     border-spacing: 0;
@@ -37,6 +37,11 @@ table tbody {
 table td {
     padding: 0.5rem;
 
+}
+
+.container-single-image {
+    max-width: 80%;
+    margin: auto;
 }
 
 .data-from {
