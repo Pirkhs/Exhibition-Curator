@@ -16,10 +16,15 @@ main {
     font-size: xx-large;
     text-align: center;
     border: 1px solid white;
-    margin: 5rem;
+    margin: 3rem;
 }
 
 .home {
     text-align: center;
     font-size: larger;
+}
+
+.introduction {
+    margin-top: auto;
+    margin-bottom: auto;
 }
