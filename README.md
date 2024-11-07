@@ -34,7 +34,7 @@ It must be noted this application is solely front-end, so any exhibition data wi
 If you wish to clone this repo locally run the command ```git clone https://github.com/Pirkhs/Exhibition-Curator.git``` in your terminal <br> 
 Ensure you are in the correct 'Exhibition Curator' working directory: ```cd [local_file_path]``` <br> 
 Run ```npm install``` in your terminal to download all the required npm packages <br> 
-You will need to request an api key to be able to fetch data from the HAM collection:
+You will need to request an api key to be able to fetch data from the Harvard Arts Museum:
 - Visit 'https://harvardartmuseums.org/collections/api'
 - Click on "*Send a request*"
 - Fill out the survey 
@@ -50,4 +50,5 @@ React v18.3.1+
 
 ## Additional Information
 - Mobile viewing now supported
-- Have Fun !
+- Feel free to leave suggestions and/or feedback
+- Have fun curating !
