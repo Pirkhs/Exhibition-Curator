@@ -39,18 +39,6 @@ table td {
 
 }
 
-#object-id {
-    float: right;
-    border: 1px solid transparent;
-    color: white;
-    font-weight: 500;
-    border-radius: 1rem;
-    background-color: #1a1a1a;
-    padding: 1rem;
-    margin-bottom: 1rem;
-}
-
-
 .data-from {
     text-align: center;
 }
