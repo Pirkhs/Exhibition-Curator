@@ -106,12 +106,17 @@ export default function SingleObject () {
                     </tbody>
                 </table>
                 <br/>
-
-                { object.primaryImageSmall || object.primaryimageurl ? <ImageComponent src={object.primaryImageSmall || object.primaryimageurl} alt={`An image of ${object.title}`}/> : <Error msg="No image data"/>}
+                <div className="container-single-image">
+                    { object.primaryImageSmall || object.primaryimageurl ? <ImageComponent src={object.primaryImageSmall || object.primaryimageurl} alt={`An image of ${object.title}`}/> : <Error msg="No image data"/>}
+                </div>
                 <br/>
                 <figcaption className="data-from"> Data From: <span className="collection-name">{ collectionId === 1 ? "Metropolitan Museum of Arts" : "Harvard Arts Museum"} </span> </figcaption> 
                 <br/>
-                <div className="container-button-add"><button disabled={isAdded ? true : false} onClick = {() => { handleAddToExhibition() }}>  {isAdded ? "In Your Exhibition" : "Add to My Exhibition"} </button></div> 
+                <div className="container-button-add">
+                {
+                    !isAdded ? <button onClick = {() => { handleAddToExhibition() }}> Add to My Exhibition </button> : <p> Already in Your Exhibition </p>
+                }
+                </div> 
             </ul>
             }
         </section>

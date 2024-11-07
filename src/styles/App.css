@@ -18,3 +18,8 @@ main {
     border: 1px solid white;
     margin: 5rem;
 }
+
+.home {
+    text-align: center;
+    font-size: larger;
+}

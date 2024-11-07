@@ -6,12 +6,12 @@ export default function Collections () {
     return (
         <>
         <section>
-            <h2> Metropolitan Museum of Art </h2>
+            <h2 className="collection-header"> Metropolitan Museum of Art Collection</h2>
             <CollectionMMoA/>
         </section>
-
+        <div className = "container-divider"></div>
         <section>
-            <h2> Harvard Arts Museum </h2>
+            <h2 className="collection-header"> Harvard Arts Museum Collection </h2>
             <CollectionHAM/>
         </section>
         </>

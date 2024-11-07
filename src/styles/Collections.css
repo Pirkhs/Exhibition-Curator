@@ -13,6 +13,14 @@ h3 {
     opacity: 1
 }
 
+.container-divider {
+    margin: 10%;
+}
+
+.collection-header {
+    font-size: 300%
+}
+
 .container-loading {
     margin-bottom: 100%;
 }

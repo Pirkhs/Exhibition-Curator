@@ -1,8 +1,11 @@
 
 # Exhibition Curator
 
+A link to the live version on Netflify can be found here: https://exhibition-curator-nathan-briers.netlify.app
+
 ## Project Summary
-This project enables users to become their very own curator of various antiques and fine artworks by browsing through collections and choosing to add specific pieces to their very own exhbition.
+This project enables users to become their very own curator of various antiques and fine artworks by browsing through collections and choosing to add specific pieces to their very own exhbition. <br>
+It must be noted this application is solely front-end, so any exhibition data will be lost upon a new session.
 
 ## User Stories
 - Be welcomed on the web appplication's **"Home"** page
@@ -28,8 +31,8 @@ This project enables users to become their very own curator of various antiques 
 - If you wish to remove an object from your collection, click the **'Remove'** button, in which a modal window will pop up to confirm.
 
 ## Setting Up Locally
-If you wish to clone this repo locally run the command *'https://github.com/Pirkhs/Exhibition-Curator.git'* in your terminal <br> 
-Ensure you are in the correct working directory ```cd [local_file_path]``` <br> 
+If you wish to clone this repo locally run the command ``` git clone https://github.com/Pirkhs/Exhibition-Curator.git``` in your terminal <br> 
+Ensure you are in the correct 'Exhibition Curator' working directory: ```cd [local_file_path]``` <br> 
 Run ```npm install``` in your terminal to download all the required npm packages <br> 
 You will need to request an api key to be able to fetch data from the HAM collection:
 - Visit 'https://harvardartmuseums.org/collections/api'
@@ -39,10 +42,6 @@ You will need to request an api key to be able to fetch data from the HAM collec
 
 Create a new file called **.env** inside the root folder and contains the following: ```VITE_API_KEY=[your_api_key]``` <br>
 The command ```npm run dev``` will then host the server locally on port number 5173 <br> 
-
-## View Live Version
-A link to the live version on Netflify can be found here: https://exhibition-curator-nathan-briers.netlify.app
-
 
 ## Version Control
 Node v21.2.0+ <br>

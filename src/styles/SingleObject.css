@@ -2,6 +2,11 @@
     text-align: center;
 }
 
+.single-object {
+    margin: auto;
+    width: 45%;
+}
+
 li {
     list-style-type: none;
 }
@@ -44,6 +49,7 @@ table td {
     padding: 1rem;
     margin-bottom: 1rem;
 }
+
 
 .data-from {
     text-align: center;
