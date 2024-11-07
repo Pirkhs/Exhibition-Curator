@@ -31,7 +31,7 @@ It must be noted this application is solely front-end, so any exhibition data wi
 - If you wish to remove an object from your collection, click the **'Remove'** button, in which a modal window will pop up to confirm.
 
 ## Setting Up Locally
-If you wish to clone this repo locally run the command ``` git clone https://github.com/Pirkhs/Exhibition-Curator.git``` in your terminal <br> 
+If you wish to clone this repo locally run the command ```git clone https://github.com/Pirkhs/Exhibition-Curator.git``` in your terminal <br> 
 Ensure you are in the correct 'Exhibition Curator' working directory: ```cd [local_file_path]``` <br> 
 Run ```npm install``` in your terminal to download all the required npm packages <br> 
 You will need to request an api key to be able to fetch data from the HAM collection:
