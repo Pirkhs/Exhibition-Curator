@@ -28,6 +28,7 @@ h3 {
 .container-searchbar {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .container-queries {
